@@ -1,0 +1,66 @@
+\documentclass{article}
+
+\usepackage[x-1a]{pdfx}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\usepackage{cite}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+
+\usepackage{graphicx}
+\usepackage{xcolor,colortbl}
+\usepackage{longtable}
+\definecolor{Gray}{gray}{0.85}
+\definecolor{Dark-gray}{gray}{0.25}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}
+%\newcolumntype{a}{>{\columncolor{Gray}}| c |}
+
+\usepackage{etoolbox}
+\patchcmd{\thebibliography}{\section*{\refname}}{}{}{}
+
+\usepackage{arev}
+%\usepackage[sfdefault]{FiraSans} %% option 'sfdefault' activates Fira Sans as the default text font
+%\usepackage[T1]{fontenc}
+%\renewcommand*\oldstylenums[1]{{\firaoldstyle #1}}
+
+\begin{document}
+\title{Semantic Language Product Lines and Multi-Dimensional Variability Models}
+\pagenumbering{gobble}
+\includegraphics[width=\textwidth]{img/unimi.jpg}
+\renewcommand{\arraystretch}{2}
+\renewcommand{\familydefault}{\sfdefault}
+\begin{longtable}{|C{.23\textwidth}|C{0.23\textwidth}|C{.23\textwidth}|C{.23\textwidth}|}
+    \hline
+    \multicolumn{4}{|c|}{\cellcolor{Gray}\large{\textcolor{Dark-gray}{RESEARCH PROJECT}}} \\ \hline
+    \cellcolor{Gray}\textcolor{Dark-gray}{Applicant's Name} & Federico Cristiano Bruzzone & \cellcolor{Gray}\textcolor{Dark-gray}{PhD} & Computer Science\\ \hline
+\end{longtable}
+
+\begin{longtable}{| p{\textwidth} |}
+    \hline
+    \cellcolor{Gray} \textcolor{Dark-gray}{Project title} \\ \hline
+\end{longtable}
+    Universal Language Server Protocol and Debugger Adapter Protocol for Modular Language Workbenches
+\begin{longtable}{| p{\textwidth} |}
+    \hline
+    \cellcolor{Gray} \textcolor{Dark-gray}{Abstract} \\ \hline
+\end{longtable}
+    \input sections/abstract.tex
+\begin{longtable}{| p{\textwidth} |}
+    \hline
+    \cellcolor{Gray} \textcolor{Dark-gray}{Project aims and their relevance in the context of the state of the art} \\ \hline
+\end{longtable}
+    \input sections/aims.tex
+\begin{longtable}{| p{\textwidth} |}
+    \hline
+    \cellcolor{Gray} \textcolor{Dark-gray}{Project description} \\ \hline
+\end{longtable}
+    \input sections/description.tex
+\begin{longtable}{| p{\textwidth} |}
+    \hline
+    \cellcolor{Gray} \textcolor{Dark-gray}{References} \\ \hline
+\end{longtable}
+\bibliographystyle{plain}
+\bibliography{local,reflection,aosd,my_work,oolanguages,programming,software_engineering,dsl,pl,distributed_systems,grammars,pattern,biomedicine,splc,learning}
+
+\end{document}
