@@ -64,27 +64,14 @@ What I want to prove with this project is that the implementation of an LS could
 In \textit{feature-oriented programming} (FOP) \cite{Apel13, Czarnecki04, Prehofer01}, a feature module is a unit of composition that encapsulates a specific functionality, and it is a first-class entity that can be composed with other feature modules to form a software system; similar to an aspect module that encapsulates a crosscutting concern in \textit{aspect-oriented programming} (AOP) \cite{Kiczales01, Kiczales97, Laddad03}.
 So, proponing a new modular approach to the implementation of an LS, based also on FOP, I want to extend Neverlang Language Workbench~\cite{Cazzola15c, Cazzola14c} in order to give support to the implementation of the LS for each semantic action of the language, and I will also implement the Neverlang LSP~\cite{Cazzola19} and DAP to support the composition of the LS feature modules.
 In this way, the implementation of the LS is a \textit{bottom-up} activity, where each semantic action has attached a feature module that implements the LS functionality for that action, and these units can be composed to provide a modular implementation of the LS.
-Each feature module is written using a DSL, developed in the context of the Neverlang framework, that is specific for the implementation of the LS, and it is independent from the language for which the LS is being implemented.
+Each feature module will be written using a DSL, developed in the context of the Neverlang framework, that is specific for the implementation of the LS, and it is independent from the language for which the LS is being implemented.
 Furthermore, with this approach, we want to prove that it is possible to reduce the number of combinations from $\mathcal{L} + \mathcal{E}$ to $\mathcal{L} \times 1$ by generating client implementations.
 
 \hfill \break
 \noindent
 \textbf{Methodology}
 
-The first step involves defining feature modules, which are essential components that encapsulate different functionalities of Language Server Protocol (LSP) and Debug Adapter Protocol (DAP). These functionalities include syntax highlighting, code completion, debugging, and documentation support. Each feature module is identified and defined based on its specific role within the LSP and DAP ecosystem.
-
-Following the identification of feature modules, the next phase is developing domain-specific languages (DSLs) within Neverlang. These DSLs are tailored to facilitate the development and composition of the feature modules, providing a structured and efficient way to create and manage them.
-
-Once the feature modules are defined and the DSLs are developed, the next step is to implement a system within Neverlang that allows for the composition of these feature modules. This system enables the integration of various feature modules into a complete and functional Language Server.
-
-With the modular framework in place, the next phase involves developing Language Servers for multiple programming languages. This step demonstrates the reuse and compositional capabilities of the feature modules. By leveraging the modular design, Language Servers for different languages can be developed more efficiently and with greater consistency.
-
-To ensure the effectiveness of these Language Servers, their performance and integration within different Integrated Development Environments (IDEs) and Source Code Editors (SCEs) will be evaluated. This evaluation will focus on how well the Language Servers perform in real-world development environments and how seamlessly they integrate with existing tools.
-Comparison and Analysis
-
-The final phase of the methodology involves a comprehensive comparison and analysis. This includes evaluating the effort and complexity involved in the modular approach compared to traditional top-down methods. By analyzing the development process, the benefits and challenges of using a modular framework can be assessed.
-
-Additionally, the maintainability and extensibility of the modular approach will be scrutinized. This involves introducing changes and enhancements to the Language Servers and observing how easily these modifications can be implemented. The goal is to determine whether the modular approach offers superior maintainability and extensibility compared to traditional methods.
+The first step involves defining feature modules, which are essential components that encapsulate different functionalities of Language Server Protocol (LSP) and Debug Adapter Protocol (DAP). These functionalities include syntax highlighting, code completion, debugging, and documentation support. Each feature module is identified and defined based on its specific role within the LSP and DAP ecosystem. Following the identification of feature modules, the next phase is developing domain-specific languages (DSLs) within Neverlang. These DSLs are tailored to facilitate the development and composition of the feature modules, providing a structured and efficient way to create and manage them. Once the feature modules are defined and the DSLs are developed, the next step is to implement a system within Neverlang that allows for the composition of these feature modules. This system enables the integration of various feature modules into a complete and functional Language Server. With the modular framework in place, the next phase involves developing Language Servers for multiple programming languages. This step demonstrates the reuse and compositional capabilities of the feature modules. By leveraging the modular design, Language Servers for different languages can be developed more efficiently and with greater consistency. To ensure the effectiveness of these Language Servers, their performance and integration within different Integrated Development Environments (IDEs) and Source Code Editors (SCEs) will be evaluated. This evaluation will focus on how well the Language Servers perform in real-world development environments and how seamlessly they integrate with existing tools. The final phase of the methodology involves a comprehensive comparison and analysis. This includes evaluating the effort and complexity involved in the modular approach compared to traditional top-down methods. By analyzing the development process, the benefits and challenges of using a modular framework can be assessed. Additionally, the maintainability and extensibility of the modular approach will be scrutinized. This involves introducing changes and enhancements to the Language Servers and observing how easily these modifications can be implemented. The goal is to determine whether the modular approach offers superior maintainability and extensibility compared to traditional methods.
 
 \hfill \break
 \noindent
@@ -93,7 +80,6 @@ Additionally, the maintainability and extensibility of the modular approach will
 \begin{itemize}
     \item \textbf{A Modular Framework for Language Server Development}: A comprehensive framework within the Neverlang Language Workbench that supports the modular development of Language Servers.
     \item \textbf{Reduction in Development Effort}: Empirical evidence demonstrating a reduction in the development effort and complexity associated with implementng Language Servers.
-    % \item \textbf{Multiple DSLs for LSP and DAP Development}: Implementation of multiple domain-specific languages (DSLs) specifically designed for developing LSP and DAP functionalities, facilitating easier and more structured creation of Language Servers.
     \item \textbf{Reusable and Language-Agnostic Modules}: A library of reusable, language-agnostic feature modules for common LSP and DAP functionalities.
     \item \textbf{Case Studies and Practical Applications}: Detailed case studies showcasing the practical applications of the modular approach across different programming languages and development environments.
 \end{itemize}
@@ -101,16 +87,33 @@ Additionally, the maintainability and extensibility of the modular approach will
 
 \hfill \break
 \noindent
-\textbf{Timeline of 36 months}
+\textbf{Timeline}
 
+\hfill \break
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=.9\linewidth]{figs/gantt.pdf}
+    \caption{Proposed timeline for the research project.}
+    \label{fig:gantt}
+\end{figure}
+
+In figure \ref{fig:gantt} is shown the proposed timeline for the research project. The project is divided into seven main phases:
 \begin{itemize}
-    \item \textbf{Months 1-6}: Literature review on Language Servers, Language Server Protocol, Debug Adapter Protocol, Feature-Oriented Programming, and Software Product Lines.
-    \item \textbf{Months 7-12}: Design and development of feature modules for LSP and DAP functionalities within the Neverlang framework.
-    \item \textbf{Months 13-18}: Implementation of DSLs for LSP and DAP development, enabling the creation of feature modules.
-    \item \textbf{Months 19-24}: Development of a modular system for composing feature modules and generating Language Servers.
-    \item \textbf{Months 25-30}: Implementation of Language Servers for multiple programming languages using the modular framework.
-    \item \textbf{Months 31-36}: Evaluation of the modular approach, comparison with traditional methods, and analysis of the benefits and challenges.
+    \item Literature Review
+    \item Design and development of feature modules
+    \item DSLs implementation for LSP and DAP
+    \item Composing feature modules within Neverlang
+    \item Universal Clients Generation
+    \item Testing modularization with 3 LSs
+    \item Evaluation comparison and analysis
 \end{itemize}
+
+The literature phase will be carried out in the first six months. I will start by expanding my knowledge LSP and DAP in general, and then I will perform a deeper study of all the most important approaches currently available in literature to elaborate on their pros and cons and lay a groundwork for my research work. Great attention would be given to the study of bottom-up and top-down approaches, in order to find their shared aspects. This process will lead to the drafting of a survey on feature-oriented programmin and software product lines.
+During the next eight months, I will design and develop the feature modules for the LS, and I will extend the Neverlang framework to support the implementation of the LS feature modules. This will be supported by the implementation of generic data structures, such as \textit{Indexed Trees}, \textit{Dependency Graphs}, and \textit{Symbol Tables}, that will be populated by any given language artifact not known \textit{a priori}. An additional compilation step will be added to the Neverlang framework to generate the feature modules from the language artifacts.
+In the following six months, I will implement the DLSs for the LSP and DAP, and I will extend the Neverlang framework to support the composition of the LS feature modules through the DLSs. This will be supported by the implementation of a \textit{multi-dimensional variability model}~\cite{Rosenmuller11}.
+
+
+
 
 \hfill \break
 \noindent

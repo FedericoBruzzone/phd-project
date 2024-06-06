@@ -33,9 +33,9 @@
 \newcommand{\colorseventhgroupbg}{Brown!60}
 \newcommand{\colorseventhgroupchildbg}{Brown!30}
 
-\newcommand{\colorseventhgroup}{SeeGreen}
-\newcommand{\colorseventhgroupbg}{SeeGreen!60}
-\newcommand{\colorseventhgroupchildbg}{SeeGreen!30}
+\newcommand{\coloreighthgroup}{SeaGreen}
+\newcommand{\coloreighthgroupbg}{SeaGreen!60}
+\newcommand{\coloreighthgroupchildbg}{SeaGreen!30}
 
 \definecolor{barblue}{RGB}{153,204,254}
 \definecolor{groupblue}{RGB}{51,102,254}
@@ -49,8 +49,8 @@
 \sffamily
 \begin{ganttchart}[
     canvas/.append style={fill=none, draw=black!5, line width=.75pt},
-    hgrid style/.style={draw=black!5, line width=.75pt},
-    vgrid={*1{draw=black!5, line width=.75pt}},
+    % hgrid style/.style={draw=black!5, line width=.75pt},
+    vgrid,%={*1{draw=black!5, line width=.75pt}},
     % today=7,
     % today rule/.style={
     %   draw=black!64,
@@ -103,9 +103,8 @@
   \ganttbar[
     bar/.append style={draw=\colorfirstgroup, fill=\colorfirstgroupchildbg},
     name=LR2
-  ]{\textbf{Future-Oriented Programming} LR}{5}{6} \\
+  ]{\textbf{Future-Oriented Programming} LR}{5}{6} \\ [grid]
 
-  [grid]
   \ganttgroup[
     group/.append style={draw=\colorsecondgroup, fill=\colorsecondgroupbg},
     name=DesignDevelopment
@@ -129,10 +128,8 @@
   \ganttbar[
     bar/.append style={draw=\colorsecondgroup, fill=\colorsecondgroupchildbg},
     name=DD3
-  ]{\textbf{Adding a compilation phase} implementation}{11}{14} \\
+  ]{\textbf{Adding a compilation phase} implementation}{11}{14} \\ [grid]
 
-
-  [grid]
   \ganttgroup[
     group/.append style={draw=\colorthirdgroup, fill=\colorthirdgroupbg},
     name=DSLsImplementation
@@ -148,9 +145,8 @@
   \ganttbar[
       bar/.append style={draw=\colorthirdgroup, fill=\colorthirdgroupchildbg},
       name=DI3
-  ]{Implement \textbf{DAP} DSL}{15}{20} \\
+  ]{Implement \textbf{DAP} DSL}{15}{20} \\ [grid]
 
-  [grid]
   \ganttgroup[
     group/.append style={draw=\colorfourthgroup, fill=\colorfourthgroupbg},
     name=Composing
@@ -166,9 +162,8 @@
   \ganttbar[
       bar/.append style={draw=\colorfourthgroup, fill=\colorfourthgroupchildbg},
       name=C3
-  ]{Fully integration with \textbf{Neverlang}}{22}{24} \\
+  ]{Fully integration with \textbf{Neverlang}}{22}{24} \\ [grid]
 
-  [grid]
   \ganttgroup[
     group/.append style={draw=\colorfifthgroup, fill=\colorfifthgroupbg},
     name=ClientsGeneration
@@ -188,9 +183,8 @@
   \ganttbar[
       bar/.append style={draw=\colorfifthgroup, fill=\colorfifthgroupchildbg},
       name=CG4
-  ]{Generate \textbf{IntelliJ} client}{28}{28} \\
+  ]{Generate \textbf{IntelliJ} client}{28}{28} \\ [grid]
 
-  [grid]
   \ganttgroup[
     group/.append style={draw=\colorsixthgroup, fill=\colorsixthgroupbg},
     name=Testing
@@ -206,13 +200,12 @@
   \ganttbar[
       bar/.append style={draw=\colorsixthgroup, fill=\colorsixthgroupchildbg},
       name=T3
-  ]{\textbf{SQL} testing}{30}{32} \\
+  ]{\textbf{SQL} testing}{30}{32} \\ [grid]
 
-  [grid]
   \ganttgroup[
     group/.append style={draw=\colorseventhgroup, fill=\colorseventhgroupbg},
     name=Evaluation
-  ]{Evaluation comparing with other approaches}{31}{36} \\
+  ]{Evaluation comparison and analysis}{31}{36} \\
   \ganttbar[
       bar/.append style={draw=\colorseventhgroup, fill=\colorseventhgroupchildbg},
       name=E1
@@ -220,27 +213,21 @@
   \ganttbar[
       bar/.append style={draw=\colorseventhgroup, fill=\colorseventhgroupchildbg},
       name=E2
-  ]{Analysis of the benefits of \textbf{bottom-up} approach}{34}{36} \\
+  ]{Analysis of the benefits of \textbf{bottom-up} approach}{34}{36} \\ [grid]
 
-  [grid]
   \ganttgroup[
-    group/.append style={draw=black, fill=black!60},
+      group/.append style={draw=\coloreighthgroup, fill=\coloreighthgroupbg},
     name=Thesis
 ]{Thesis writing}{31}{39} \\
-
-
   \ganttvrule[ vrule/.append style={draw=gray, thick} ]{}{6}
   \ganttvrule[ vrule/.append style={draw=gray, thick} ]{}{18}
   \ganttvrule[ vrule/.append style={draw=gray, thick} ]{}{30}
-
   \ganttvrule[]{First Year}{12}
   \ganttvrule[]{Second Year}{24}
   \ganttvrule[]{Third Year}{36}
-
-
-  \ganttlink[link type=f-s]{DesignDevelopment}{DI2}
-  \ganttlink[link type=f-s]{CG1}{CG2}
-  \ganttlink[link type=f-s]{T1}{Evaluation}
+  % \ganttlink[link type=f-s]{DesignDevelopment}{DI2}
+  % \ganttlink[link type=f-s]{CG1}{CG2}
+  % \ganttlink[link type=f-s]{T1}{Evaluation}
 
   % \ganttlink[link type=s-s]{WBS1A}{WBS1B}
   % \ganttlink[
