@@ -1,25 +1,55 @@
+Domain-specific languages (DSLs) and language-oriented programming have be-
+come very successful tools in the development of complex software systems. To best
+suit their purpose, DSLs are very different from one another, yet many of them share
+commonalities in either their patterns or their implementation. The goal for language
+designers would be to spot those similarities and to exploit them in order to improve the
+reuse of preexisting implementations and minimizing the development from scratch.
+The most common approach for dealing with this task is the use of product line en-
+gineering ideas; this introduces the notion of language product line (LPL) to the DSL
+development. Nowadays, the research has produced several attempts to the creation
+of tools for variability management. This project will try to take all of them into ac-
+count but will focus on the tools applying a bottom-up approach to LPL development,
+i.e. those in which the application engineering phase is performed before the domain
+engineering phase. Even among these approaches, the support for multi-dimensional
+variability is scarce. I propose to study a formal method to define a multi-dimensional
+variability model that takes each syntactic and sematic role into consideration using a
+bottom-up approach. As a case-study to translate the formal method into LPL develop-
+ment tools, I propose Neverlang, a framework for modular DSL definition developed by
+Università degli Studi di Milano, which also already has its own version of syntax-based
+LPL development tool by means of AiDE.
+
+
 The primary aim of this project is to develop a Universal Language Server Pro-
 tocol1 (LSP) and Debugger Adapter Protocol2 (DAP) for modular language work-
 benches. This endeavor seeks to address significant gaps and challenges developing
 LSPs and DAPs in the current landscape of language workbenches, particularly in the
 areas of modularization, composition, and interoperability. Current language work-
-benches such as Melange [6], MontiCore [11], Spoofax [10], and MPS [21, 22] have
+benches such as Melange [12], MontiCore [22], Spoofax [19], and MPS [42, 43] have
 made significant strides in supporting modularization, composition, and IDE integra-
-tion. However, their approaches are often fragmented and lack a standardized method
-for LSP and DAP generation and modularization. Neverlang [17, 20], developed at the
-ADAPT-Lab3 of the Università degli Studi di Milano, being a comprehensive framework
-for language composition and modularization that supports the development of lan-
-guage product lines [4, 13] (LPLs), is a prime candidate for the implementation of the
-proposed LSP and DAP. The project will leverage the existing capabilities of Neverlang
-to develop a universal LSP and DAP that can be used across different programming
-languages and IDEs. This will enable developers to create external domain-specific
-languages [8] (DSLs) and general-purpose languages (GPLs) more effectively and ef-
-ficiently, enhancing the overall development experience and productivity. The project
-aims to achieve the following objectives:
+tion. The table below provides a comparison of various language workbenches in terms
+of their support for modularization, precompiled feature support, native IDE generation,
+tial LSP support, generation, and and limited LSP modularization. support. However, The
+ their symbol approaches indicates are full often support, fragmented
+ # par-
+and lack a standardized G #
+ method for LSP and DAP generation and modularization. Nev-
+erlang [38, 40], developed at the ADAPT-Lab3 of the Università degli Studi di Milano,
+being a comprehensive framework for language composition and modularization that
+supports the development of language product lines [24, 8] (LPLs), is a prime candi-
+date for the implementation of the proposed LSP and DAP. The project will leverage
+the existing capabilities of Neverlang to develop a universal LSP and DAP that can be
+used across different programming languages and IDEs. This will enable developers to
+create external domain-specific languages [15] (DSLs) and general-purpose languages
+(GPLs) more effectively and efficiently, enhancing the overall development experience
+and productivity.
+The project aims to achieve the following objectives:
 Aim 1: Improve IDE and LSP Generation
 Integrated Development Environment generation and support for the Language Server
 Protocol are essential for the practical use of domain-specific languages (DSLs). While
-some language workbenches like Xtext [2] support LSP generation [1], many do not,
+1 https://microsoft.github.io/language-server-protocol
+2 https://microsoft.github.io/debug-adapter-protocol
+3 https://di.unimi.it/it/ricerca/risorse-e-luoghi-della-ricerca/laboratori-di-ricerca/adapt-lab
+some language workbenches like Xtext [6] support LSP generation [2], many do not,
 limiting their usability across different editors and IDEs.
 Relevance: By establishing a universal protocol for LSP and DAP, this project aims
 to bridge the gap, enabling language workbenches to generate IDE support and LSPs
@@ -27,7 +57,7 @@ more seamlessly. This will ensure that languages developed using these workbench
 can be used in any IDE that supports these protocols, enhancing their accessibility and
 utility.
 Aim 2: Facilitate LSP and DAP Modularization
-LSP and DAP modularization are not widely supported by current language workbenches [3].
+LSP and DAP modularization are not widely supported by current language workbenches [7].
 This feature is crucial for allowing different language components to communicate and
 function cohesively within an IDE.
 Relevance: Implementing support for LSP and DAP modularization will allow for bet-
@@ -35,11 +65,23 @@ ter integration and interaction of various language features, thereby improving 
 overall development experience and capability of language workbenches. This aligns
 with the needs for more sophisticated and integrated language development tools as
 highlighted in the contemporary research and development literature.
-Aim 3: Leverage Neverlang for LSP and DAP LPL Development
-Neverlang’s capabilities for language composition and modularization [5] make it an
-ideal platform for developing a universal LSP and DAP that caters to a variety of lan-
-guage needs. By leveraging Neverlang’s LPL development features [7], the project will
-establish a reusable core for LSP and DAP functionalities, allowing for the creation of
+Aim 3: Reduce to O(L) the number of combinations to support L languages
+Before the advent of LSP and DAP, developers had to implement language support for
+each editor separately, having the number of combinations to support l languages in
+O(L × E ), where E is the number of editors. Currently, the number of combinations to
+support L languages is O(L + E ) [37], as the Microsoft LSP and DAP are editor-agnostic.
+This project aims to reduce the number of combinations to O(L), by developing a uni-
+versal LSP and DAP that can be used across different programming languages and
+IDEs.
+Relevance: Reducing the number of combinations required to support multiple lan-
+guages will simplify the development process and make it more efficient. This will
+enable developers to create language support more quickly and effectively, enhancing
+the overall productivity and usability of language workbenches.
+Aim 4: Leverage Neverlang for LSP and DAP LPL Development
+Neverlang’s capabilities for language composition and modularization make it an ideal
+platform for developing a universal LSP and DAP that caters to a variety of language
+needs. By leveraging Neverlang’s LPL development features [14], the project will es-
+tablish a reusable core for LSP and DAP functionalities, allowing for the creation of
 product line variations tailored to specific programming language requirements. This
 will significantly reduce development time and effort for creating LSPs and DAPs for
 new languages within the product line.
@@ -47,3 +89,121 @@ Relevance: Developing a core reusable base for LSP and DAP functionalities throu
 Neverlang’s LPL features will streamline the creation of new language support. This
 fosters a more efficient and scalable approach to LSP and DAP development, aligning
 perfectly with the core principles of software product lines.
+
+Software languages, crucial not only in software engineering but also in various
+other fields [32, 10], require effective editing support for optimal use. This applies
+to both general-purpose languages (GPLs) and domain-specific languages (DSLs). To
+aid in this accomplishment, modern Integrated Development Environments (IDEs) and
+source-code editors (SCEs) provide a wide range of editing support (e.g., syntax and
+semantic highlighting, intelligent code completion, debugging, and show documenta-
+tion on hovering over a primitive), but the development of such support is a complex
+and time-consuming task [36]. The reduction of efforts in implementing this support
+has paved the way for an advantageous strategy for programming language develop-
+ers and maintainers, as well as those developing integration tools, when an IDE would
+have provided the implementation for their language and vice-versa. Then, given L
+languages and E editors, the number of possible combinations is L × E for both LSP and
+DAP implementations, which is a large number. It means that the development of a
+new language or editor would require a large amount of effort to provide support for
+all possible combinations, with a significant amount of duplicated work and the risk of
+introducing inconsistencies [34].
+In contemporary times, advancements in techniques [35] such as the architecture
+of language infrastructures [28, 41], Language Workbenches (LWBs) [13] and the im-
+plementation of specific patterns [3, 29, 31] have been made to address this issue.
+In this context, Microsoft in 2016 proposed the Language Server Protocol and the
+Debugger Adapter Protocol for Visual Studio Code as a promising solution to this prob-
+lem, reducing from L × E to L + E the number of combinations to be implemented,
+as it decouples the implementation of the language support from the editor (see Fig-
+ure 1). Detailing, the LSP and DAP are protocols that describes a common Application
+Programming Interface (API) that the language server (LS) should implement, with
+the benefit of having only one implementation of the LS and multiple clients (IDEs and
+SCEs) that can consume it, essentially establishing a client-server relationship through
+a communication channel (e.g., pipes or sockets). owever, the implementation of an LS
+and its integration with an IDE/SCEs is still a complex task, as it requires the knowledge
+of the LSP specification and the implementation of the language support. The imple-
+mentation [16] of an LS is done entirely manually and it is a top-down activity, where
+most of the time is spent on the design and implementation data structures and algo-
+rithms. Recently, researchers have started talking about the Software Product Lines
+(SPLs) [5, 14] to move towards a more modular world, where the implementation of a
+software system can be done in a compositional way, by composing the features of the
+SPL. When a SPL is applied to the implementation of a programming language, each
+product corresponds to a language variant [24] taking the name of Language Product
+Lines (LPLs) [24]. LPLs have been successfully used in both GPLs [9, 23, 24] and DSLs
+[17, 27, 39, 44, 45].
+What I want to prove with this project is that the implementation of an LS could be
+a bottom-up activity, where each LSP or DAP functionality can be see as a separate
+feature module [4, 18] splitted across the language artifacts, where each artifacts can
+be part of one or more features (see Figure 2). These units can be composed to pro-
+vide a modular implementation of the LS. This approach is supported by the fact that
+the LSP and DAP are language-agnostic protocol [30, 36], which means that it does
+not impose any restrictions on the implementation of the LS, as long as it respects
+the specification of the protocol. In feature-oriented programming (FOP) [1, 11, 33], a
+feature module is a unit of composition that encapsulates a specific functionality, and
+it is a first-class entity that can be composed with other feature modules to form a
+software system; similar to an aspect module that encapsulates a crosscutting concern
+in aspect-oriented programming (AOP) [20, 21, 26]. So, proponing a new modular ap-
+proach to the implementation of an LS, based also on FOP, I want to extend Neverlang
+Language Workbench [38, 40] in order to give support to the implementation of the
+LS for each semantic action of the language, and I will also implement the Neverlang
+LSP [25] and DAP to support the composition of the LS feature modules. In this way, the
+implementation of the LS is a bottom-up activity, where each semantic action has at-
+tached a feature module that implements the LS functionality for that action, and these
+units can be composed to provide a modular implementation of the LS. Each feature
+module is written using a DSL, developed in the context of the Neverlang framework,
+that is specific for the implementation of the LS, and it is independent from the lan-
+guage for which the LS is being implemented. Furthermore, with this approach, we
+want to prove that it is possible to reduce the number of combinations from L + E to
+L × 1 by generating client implementations.
+Methodology Feature-Oriented Programming in Neverlang
+The first step involves defining feature modules, which are essential components
+that encapsulate different functionalities of Language Server Protocol (LSP) and Debug
+Adapter Protocol (DAP). These functionalities include syntax highlighting, code comple-
+tion, debugging, and documentation support. Each feature module is identified and
+defined based on its specific role within the LSP and DAP ecosystem.
+Following the identification of feature modules, the next phase is to develop a
+domain-specific language (DSL) within Neverlang. This DSL is tailored to facilitate the
+development and composition of the feature modules, providing a structured and effi-
+cient way to create and manage them.
+Once the feature modules are defined and the DSL is developed, the next step
+is to implement a system within Neverlang that allows for the composition of these
+feature modules. This system enables the integration of various feature modules into
+a complete and functional Language Server. Implementation of Language Servers
+With the modular framework in place, the next phase involves developing Language
+Servers for multiple programming languages. This step demonstrates the reuse and
+compositional capabilities of the feature modules. By leveraging the modular design,
+Language Servers for different languages can be developed more efficiently and with
+greater consistency.
+To ensure the effectiveness of these Language Servers, their performance and inte-
+gration within different Integrated Development Environments (IDEs) and Source Code
+Editors (SCEs) will be evaluated. This evaluation will focus on how well the Language
+Servers perform in real-world development environments and how seamlessly they in-
+tegrate with existing tools. Comparison and Analysis
+The final phase of the methodology involves a comprehensive comparison and anal-
+ysis. This includes evaluating the effort and complexity involved in the modular ap-
+proach compared to traditional top-down methods. By analyzing the development pro-
+cess, the benefits and challenges of using a modular framework can be assessed.
+Additionally, the maintainability and extensibility of the modular approach will be
+scrutinized. This involves introducing changes and enhancements to the Language
+Servers and observing how easily these modifications can be implemented. The goal
+is to determine whether the modular approach offers superior maintainability and ex-
+tensibility compared to traditional methods.
+Expected Contributions
+• A Modular Framework for Language Server Development: A comprehensive
+framework within the Neverlang Language Workbench that supports the modular
+development of Language Servers.
+• Reduction in Development Effort: Empirical evidence demonstrating a reduc-
+tion in the development effort and complexity associated with implementng Lan-
+guage Servers.
+• Reusable and Language-Agnostic Modules: A library of reusable, language-
+agnostic feature modules for common LSP and DAP functionalities.
+• Case Studies and Practical Applications: Detailed case studies showcasing
+the practical applications of the modular approach across different programming
+languages and development environments.
+Conclusion
+The proposed modular approach to implementing Language Servers via feature-
+oriented programming within the Neverlang Language Workbench represents a signif-
+icant advancement in reducing the complexity and effort associated with developing
+Language Servers. By decomposing the LS functionalities into reusable and compos-
+able feature modules, this approach promises to enhance maintainability, extensibility,
+and overall efficiency in the development of language support tools. This research
+will contribute valuable insights and practical solutions to the field of programming
+language implementation and development environment integration.

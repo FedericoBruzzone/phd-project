@@ -1,31 +1,40 @@
 \documentclass{article}
-
-\usepackage[x-1a]{pdfx}
 \usepackage[utf8]{inputenc}
-\usepackage{amsmath}
-\usepackage{amssymb}
-
-\usepackage{cite}
 \usepackage[a4paper, total={6in, 8in}]{geometry}
 
+\usepackage{arev}
+\usepackage{caption}
+\usepackage{wasysym}
 \usepackage{graphicx}
 \usepackage{xcolor,colortbl}
 \usepackage{longtable}
 \definecolor{Gray}{gray}{0.85}
 \definecolor{Dark-gray}{gray}{0.25}
 \newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}
-%\newcolumntype{a}{>{\columncolor{Gray}}| c |}
+\usepackage{hyperref}
 
-\usepackage{etoolbox}
+% \usepackage[x-1a]{pdfx}
+
+\usepackage[on]{dowecomment?}
+\newcommand{\cwcomment}[1]{\usercomment{CW}{BloodRed}{#1}}
+\newcommand{\bfcomment}[1]{\usercomment{BF}{Teal}{#1}}
+\newcommand{\flcomment}[1]{\usercomment{LF}{green!30!black!90}{#1}}
+\usepackage{booktabs} % for tables
+\newcommand{\circleblack}{\CIRCLE}
+\newcommand{\circlewhite}{\Circle}
+\newcommand{\circleleft}{\LEFTcircle}
+\newcommand{\circleright}{\RIGHTcircle}
+
+% %\newcolumntype{a}{>{\columncolor{Gray}}| c |}
+
 \patchcmd{\thebibliography}{\section*{\refname}}{}{}{}
 
-\usepackage{arev}
 %\usepackage[sfdefault]{FiraSans} %% option 'sfdefault' activates Fira Sans as the default text font
 %\usepackage[T1]{fontenc}
 %\renewcommand*\oldstylenums[1]{{\firaoldstyle #1}}
 
 \begin{document}
-\title{Semantic Language Product Lines and Multi-Dimensional Variability Models}
+\title{Universal Language Server Protocol and Debugger Adapter Protocol for Modular Language Workbenches}
 \pagenumbering{gobble}
 \includegraphics[width=\textwidth]{img/unimi.jpg}
 \renewcommand{\arraystretch}{2}
@@ -60,7 +69,11 @@
     \hline
     \cellcolor{Gray} \textcolor{Dark-gray}{References} \\ \hline
 \end{longtable}
+
+
 \bibliographystyle{plain}
-\bibliography{local,reflection,aosd,my_work,oolanguages,programming,software_engineering,dsl,pl,distributed_systems,grammars,pattern,biomedicine,splc,learning}
+% \bibliography{local,reflection,aosd,my_work,oolanguages,programming,software_engineering,dsl,pl,distributed_systems,grammars,pattern,biomedicine,splc,learning}
+\bibliography{local,strings,metrics,programming,software_engineering,software_architecture,dsl,pl,splc,oolanguages,my_work,grammars,security,roles,learning,cop,testing,dsu,distributed_systems,reflection,aosd,pattern}
+
 
 \end{document}

@@ -5,9 +5,37 @@
 \title{Gantt Charts with the pgfgantt Package}
 \begin{document}
 
-\newcommand{\colorfirstgroup}{green!10!orange}
-\newcommand{\colorsecondgroup}{green!10!blue}
+\newcommand{\colorfirstgroup}{Orange}
+\newcommand{\colorfirstgroupbg}{Orange!60}
+\newcommand{\colorfirstgroupchildbg}{Orange!30}
 
+\newcommand{\colorsecondgroup}{Blue}
+\newcommand{\colorsecondgroupbg}{Blue!60}
+\newcommand{\colorsecondgroupchildbg}{Blue!30}
+
+\newcommand{\colorthirdgroup}{Red}
+\newcommand{\colorthirdgroupbg}{Red!60}
+\newcommand{\colorthirdgroupchildbg}{Red!30}
+
+\newcommand{\colorfourthgroup}{OliveGreen}
+\newcommand{\colorfourthgroupbg}{OliveGreen!60}
+\newcommand{\colorfourthgroupchildbg}{OliveGreen!30}
+
+\newcommand{\colorfifthgroup}{MidnightBlue}
+\newcommand{\colorfifthgroupbg}{MidnightBlue!60}
+\newcommand{\colorfifthgroupchildbg}{MidnightBlue!30}
+
+\newcommand{\colorsixthgroup}{Orchid}
+\newcommand{\colorsixthgroupbg}{Orchid!60}
+\newcommand{\colorsixthgroupchildbg}{Orchid!30}
+
+\newcommand{\colorseventhgroup}{Brown}
+\newcommand{\colorseventhgroupbg}{Brown!60}
+\newcommand{\colorseventhgroupchildbg}{Brown!30}
+
+\newcommand{\colorseventhgroup}{SeeGreen}
+\newcommand{\colorseventhgroupbg}{SeeGreen!60}
+\newcommand{\colorseventhgroupchildbg}{SeeGreen!30}
 
 \definecolor{barblue}{RGB}{153,204,254}
 \definecolor{groupblue}{RGB}{51,102,254}
@@ -35,7 +63,7 @@
     title label node/.append style={below=7pt},
     include title in canvas=false,
     bar label font=\mdseries\small\color{black!70},
-    bar label node/.append style={left=2cm},
+    bar label node/.append style={left=.6cm},
     % bar/.append style={draw=none, fill=black!63},
     % bar incomplete/.append style={fill=barblue},
     bar progress label font=\mdseries\footnotesize\color{black!70},
@@ -49,38 +77,176 @@
     link/.style={-latex, line width=1.5pt, linkred},
     link label font=\scriptsize\bfseries,
     link label node/.append style={below left=-2pt and 0pt}
-  ]{1}{36}
+    y unit title=0.5cm,
+     y unit chart=0.7cm,
+  ]{1}{39}
   \gantttitle[
     title label node/.append style={below left=7pt and -3pt}
   ]{MONTHS:\quad1}{1}
   \gantttitlelist{2,...,36}{1} \\
   \ganttgroup[
-    group/.append style={fill=\colorfirstgroup}
-  ]{WBS 1 Summary Element 1}{1}{12} \\
+    group/.append style={draw=\colorfirstgroup, fill=\colorfirstgroupbg},
+    name=LiteratureReview
+    ]{Literature Review (LR)}{1}{6} \\
   \ganttbar[
-    name=WBS1A
-  ]{\textbf{WBS 1.1} Activity A}{1}{8} \\
+    bar/.append style={draw=\colorfirstgroup, fill=\colorfirstgroupchildbg},
+    name=LR1
+  ]{\textbf{LSP} LR}{1}{3} \\
   \ganttbar[
-    name=WBS1B
-  ]{\textbf{WBS 1.2} Activity B}{1}{3} \\
+    bar/.append style={draw=\colorfirstgroup, fill=\colorfirstgroupchildbg},
+    name=LR1
+  ]{\textbf{DAP} LR}{2}{3} \\
   \ganttbar[
-    name=WBS1C
-  ]{\textbf{WBS 1.3} Activity C}{4}{10} \\
+    bar/.append style={draw=\colorfirstgroup, fill=\colorfirstgroupchildbg},
+    name=LR2
+  ]{\textbf{Software Product Line} LR}{4}{6} \\
   \ganttbar[
-    name=WBS1D
-  ]{\textbf{WBS 1.4} Activity D}{4}{10} \\[grid]
+    bar/.append style={draw=\colorfirstgroup, fill=\colorfirstgroupchildbg},
+    name=LR2
+  ]{\textbf{Future-Oriented Programming} LR}{5}{6} \\
+
+  [grid]
   \ganttgroup[
-    group/.append style={fill=\colorsecondgroup}
-  ]{WBS 2 Summary Element 2}{4}{10} \\
-  \ganttbar[]{\textbf{WBS 2.1} Activity E}{4}{5} \\
-  \ganttbar[]{\textbf{WBS 2.2} Activity F}{6}{8} \\
-  \ganttbar[]{\textbf{WBS 2.3} Activity G}{9}{10}
-  \ganttlink[link type=s-s]{WBS1A}{WBS1B}
-  \ganttlink[link type=f-s]{WBS1B}{WBS1C}
-  \ganttlink[
-    link type=f-f,
-    link label node/.append style=left
-  ]{WBS1C}{WBS1D}
+    group/.append style={draw=\colorsecondgroup, fill=\colorsecondgroupbg},
+    name=DesignDevelopment
+  ]{Design and development of feature modules}{7}{14} \\
+  \ganttbar[
+    bar/.append style={draw=\colorsecondgroup, fill=\colorsecondgroupchildbg},
+    name=DD1
+  ]{Design \textbf{LSP} feature module}{7}{9} \\
+  \ganttbar[
+    bar/.append style={draw=\colorsecondgroup, fill=\colorsecondgroupchildbg},
+    name=DD2
+  ]{Design \textbf{DAP} feature module}{7}{9} \\
+  \ganttbar[
+      bar/.append style={draw=\colorsecondgroup, fill=\colorsecondgroupchildbg},
+      name=DD4
+  ]{\textbf{Dependency Graph} implementation}{10}{12} \\
+  \ganttbar[
+    bar/.append style={draw=\colorsecondgroup, fill=\colorsecondgroupchildbg},
+    name=DD3
+  ]{\textbf{Index Tree} implementation}{10}{12} \\
+  \ganttbar[
+    bar/.append style={draw=\colorsecondgroup, fill=\colorsecondgroupchildbg},
+    name=DD3
+  ]{\textbf{Adding a compilation phase} implementation}{11}{14} \\
+
+
+  [grid]
+  \ganttgroup[
+    group/.append style={draw=\colorthirdgroup, fill=\colorthirdgroupbg},
+    name=DSLsImplementation
+  ]{DSLs implementation for LSP and DAP}{13}{20} \\
+  \ganttbar[
+      bar/.append style={draw=\colorthirdgroup, fill=\colorthirdgroupchildbg},
+      name=DI1
+  ]{\textbf{Type System} implementation}{13}{15} \\
+  \ganttbar[
+      bar/.append style={draw=\colorthirdgroup, fill=\colorthirdgroupchildbg},
+      name=DI2
+  ]{Implement \textbf{LSP} DSL}{15}{20} \\
+  \ganttbar[
+      bar/.append style={draw=\colorthirdgroup, fill=\colorthirdgroupchildbg},
+      name=DI3
+  ]{Implement \textbf{DAP} DSL}{15}{20} \\
+
+  [grid]
+  \ganttgroup[
+    group/.append style={draw=\colorfourthgroup, fill=\colorfourthgroupbg},
+    name=Composing
+  ]{Composing feature modules within Neverlang}{19}{24} \\
+  \ganttbar[
+      bar/.append style={draw=\colorfourthgroup, fill=\colorfourthgroupchildbg},
+      name=C1
+  ]{Composing \textbf{LSP} feature modules}{19}{21} \\
+  \ganttbar[
+      bar/.append style={draw=\colorfourthgroup, fill=\colorfourthgroupchildbg},
+      name=22
+  ]{Composing \textbf{DAP} feature modules}{19}{21} \\
+  \ganttbar[
+      bar/.append style={draw=\colorfourthgroup, fill=\colorfourthgroupchildbg},
+      name=C3
+  ]{Fully integration with \textbf{Neverlang}}{22}{24} \\
+
+  [grid]
+  \ganttgroup[
+    group/.append style={draw=\colorfifthgroup, fill=\colorfifthgroupbg},
+    name=ClientsGeneration
+  ]{Universal Clients Generation}{24}{28} \\
+  \ganttbar[
+      bar/.append style={draw=\colorfifthgroup, fill=\colorfifthgroupchildbg},
+      name=CG1
+  ]{Library for \textbf{Universal Clients} Generation}{24}{25} \\
+  \ganttbar[
+      bar/.append style={draw=\colorfifthgroup, fill=\colorfifthgroupchildbg},
+      name=CG2
+  ]{Generate \textbf{NVIM}/\textbf{VIM} clients}{26}{26} \\
+  \ganttbar[
+      bar/.append style={draw=\colorfifthgroup, fill=\colorfifthgroupchildbg},
+      name=CG3
+  ]{Generate \textbf{VSCode} client}{27}{27} \\
+  \ganttbar[
+      bar/.append style={draw=\colorfifthgroup, fill=\colorfifthgroupchildbg},
+      name=CG4
+  ]{Generate \textbf{IntelliJ} client}{28}{28} \\
+
+  [grid]
+  \ganttgroup[
+    group/.append style={draw=\colorsixthgroup, fill=\colorsixthgroupbg},
+    name=Testing
+  ]{Testing modularization with 3 LSs}{28}{32} \\
+  \ganttbar[
+      bar/.append style={draw=\colorsixthgroup, fill=\colorsixthgroupchildbg},
+      name=T1
+  ]{\textbf{COBOL} testing}{28}{30} \\
+  \ganttbar[
+      bar/.append style={draw=\colorsixthgroup, fill=\colorsixthgroupchildbg},
+      name=T2
+  ]{\textbf{JavaScript} testing}{29}{31} \\
+  \ganttbar[
+      bar/.append style={draw=\colorsixthgroup, fill=\colorsixthgroupchildbg},
+      name=T3
+  ]{\textbf{SQL} testing}{30}{32} \\
+
+  [grid]
+  \ganttgroup[
+    group/.append style={draw=\colorseventhgroup, fill=\colorseventhgroupbg},
+    name=Evaluation
+  ]{Evaluation comparing with other approaches}{31}{36} \\
+  \ganttbar[
+      bar/.append style={draw=\colorseventhgroup, fill=\colorseventhgroupchildbg},
+      name=E1
+  ]{Comparision with \textbf{top-down} approach}{31}{33} \\
+  \ganttbar[
+      bar/.append style={draw=\colorseventhgroup, fill=\colorseventhgroupchildbg},
+      name=E2
+  ]{Analysis of the benefits of \textbf{bottom-up} approach}{34}{36} \\
+
+  [grid]
+  \ganttgroup[
+    group/.append style={draw=black, fill=black!60},
+    name=Thesis
+]{Thesis writing}{31}{39} \\
+
+
+  \ganttvrule[ vrule/.append style={draw=gray, thick} ]{}{6}
+  \ganttvrule[ vrule/.append style={draw=gray, thick} ]{}{18}
+  \ganttvrule[ vrule/.append style={draw=gray, thick} ]{}{30}
+
+  \ganttvrule[]{First Year}{12}
+  \ganttvrule[]{Second Year}{24}
+  \ganttvrule[]{Third Year}{36}
+
+
+  \ganttlink[link type=f-s]{DesignDevelopment}{DI2}
+  \ganttlink[link type=f-s]{CG1}{CG2}
+  \ganttlink[link type=f-s]{T1}{Evaluation}
+
+  % \ganttlink[link type=s-s]{WBS1A}{WBS1B}
+  % \ganttlink[
+  %   link type=f-f,
+  %   link label node/.append style=left
+  % ]{WBS1C}{WBS1D}
 \end{ganttchart}
 
 %
