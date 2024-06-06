@@ -199,11 +199,12 @@ agnostic feature modules for common LSP and DAP functionalities.
 the practical applications of the modular approach across different programming
 languages and development environments.
 
+
 In figure \ref{fig:gantt} is shown the proposed timeline for the research project. The project is divided into seven main phases:
 \begin{itemize}
     \item Literature Review
     \item Design and development of feature modules
-    \item DSLs implementation for LSP and DAP
+    \item DSLs implementation<D-s>for LSP and DAP
     \item Composing feature modules within Neverlang
     \item Universal Clients Generation
     \item Testing modularization with 3 LSs
@@ -211,7 +212,11 @@ In figure \ref{fig:gantt} is shown the proposed timeline for the research projec
 \end{itemize}
 
 The literature phase will be carried out in the first six months. I will start by expanding my knowledge LSP and DAP in general, and then I will perform a deeper study of all the most important approaches currently available in literature to elaborate on their pros and cons and lay a groundwork for my research work. Great attention would be given to the study of bottom-up and top-down approaches, in order to find their shared aspects. This process will lead to the drafting of a survey on feature-oriented programmin and software product lines.
-During the next eight months, I will design and develop the feature modules for the LS, and I will extend the Neverlang framework to support the implementation of the LS feature modules. This will be supported by the implementation of generic data structures, such as \textit{Indexed Trees}, \textit{Dependency Graphs}, and \textit{Symbol Tables}, that will be populated by any given language artifact not known \textit{a priori}.
+During the next eight months, I will design and develop the feature modules for the LS, and I will extend the Neverlang framework to support the implementation of the LS feature modules. This will be supported by the implementation of generic data structures, such as \textit{Indexed Trees}, \textit{Dependency Graphs}, and \textit{Symbol Tables}, that will be populated by any given language artifact not known \textit{a priori}. An additional compilation step will be added to the Neverlang framework to generate the feature modules from the language artifacts.
+In the following eight months, I will implement the DLSs for the LSP and DAP, and I will extend the Neverlang framework to support the composition of the LS feature modules through the DLSs. This will be supported by the implementation of a \textit{multi-dimensional variability model}~\cite{Rosenmuller11}.
+One of the biggest challenges, in the next six months, will be to compose the feature modules. This will be done by implementing a \textit{composition algorithm} that will take as input the splitted feature modules and the language artifacts and will produce the LS feature module.
+The following six months will be dedicated to the generation of the universal clients. This will be done by implementing a \textit{client generator} that will take as input the LS feature module and will produce the client implementation. This will be supported by the implementation of a \textit{client language} that will allow the developer to specify which client to generate. The client generator will be able to generate clients for different IDEs and SCEs, such as Visual Studio Code, Vim/Nvim and IntelliJ IDEA.
+In the last six months, I will test the modularization with three LSs, evaluating the feasibility of the approach. This will be done by implementing the LS for three different languages and by generating the client implementations. The evaluation will focus on the effort and complexity involved in the development of the LS, the maintainability and extensibility of the LS, and the integration of the LS with the existing tools. The evaluation will also include a comparison with the traditional approach to LS development, to assess the benefits and challenges of using the modular framework.
 
 
 Conclusion
