@@ -1,0 +1,72 @@
+This is BibTeX, Version 0.99d (TeX Live 2024/Arch Linux)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: project.aux
+The style file: plain.bst
+Reallocated bib_list (elt_size=8) to 40 items from 20.
+Reallocated bib_file (elt_size=8) to 40 items from 20.
+Reallocated s_preamble (elt_size=8) to 40 items from 20.
+Database file #1: local.bib
+Database file #2: strings.bib
+Database file #3: metrics.bib
+Database file #4: programming.bib
+Database file #5: software_engineering.bib
+Database file #6: software_architecture.bib
+Database file #7: dsl.bib
+Database file #8: pl.bib
+Database file #9: splc.bib
+Database file #10: oolanguages.bib
+Database file #11: my_work.bib
+Database file #12: grammars.bib
+Database file #13: security.bib
+Database file #14: roles.bib
+Database file #15: learning.bib
+Database file #16: cop.bib
+Database file #17: testing.bib
+Database file #18: dsu.bib
+Database file #19: distributed_systems.bib
+Database file #20: reflection.bib
+Database file #21: aosd.bib
+Database file #22: pattern.bib
+Warning--empty publisher in Lammel18
+You've used 46 entries,
+            2118 wiz_defined-function locations,
+            898 strings with 16639 characters,
+and the built_in function-call counts, 20641 in all, are:
+= -- 2037
+> -- 1123
+< -- 27
++ -- 421
+- -- 373
+* -- 1524
+:= -- 3295
+add.period$ -- 164
+call.type$ -- 46
+change.case$ -- 296
+chr.to.int$ -- 0
+cite$ -- 47
+duplicate$ -- 826
+empty$ -- 1484
+format.name$ -- 373
+if$ -- 4463
+int.to.chr$ -- 0
+int.to.str$ -- 46
+missing$ -- 53
+newline$ -- 235
+num.names$ -- 134
+pop$ -- 353
+preamble$ -- 2
+purify$ -- 256
+quote$ -- 0
+skip$ -- 625
+stack$ -- 0
+substring$ -- 1147
+swap$ -- 282
+text.length$ -- 27
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 170
+warning$ -- 1
+while$ -- 202
+width$ -- 48
+write$ -- 561
+(There was 1 warning)
