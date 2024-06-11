@@ -37,6 +37,10 @@
 \newcommand{\coloreighthgroupbg}{SeaGreen!60}
 \newcommand{\coloreighthgroupchildbg}{SeaGreen!30}
 
+\newcommand{\colorninthgroup}{Yellow}
+\newcommand{\colorninthgroupbg}{Yellow!60}
+\newcommand{\colorninthgroupchildbg}{Yellow!30}
+
 \definecolor{barblue}{RGB}{153,204,254}
 \definecolor{groupblue}{RGB}{51,102,254}
 \definecolor{linkred}{RGB}{165,0,33}
@@ -205,18 +209,31 @@
   \ganttgroup[
     group/.append style={draw=\colorseventhgroup, fill=\colorseventhgroupbg},
     name=Evaluation
-  ]{Evaluation comparison and analysis}{31}{36} \\
+]{Generalization to other LWs}{31}{36} \\
   \ganttbar[
       bar/.append style={draw=\colorseventhgroup, fill=\colorseventhgroupchildbg},
       name=E1
-  ]{Comparision with \textbf{top-down} approach}{31}{33} \\
+  ]{Generalization to \textbf{MPS}}{31}{33} \\
   \ganttbar[
       bar/.append style={draw=\colorseventhgroup, fill=\colorseventhgroupchildbg},
+      name=E2
+  ]{Generalization to \textbf{Spoofax}}{34}{36} \\ [grid]
+
+  \ganttgroup[
+      group/.append style={draw=\coloreighthgroup, fill=\coloreighthgroupbg},
+    name=Evaluation
+  ]{Evaluation comparison and analysis}{31}{36} \\
+  \ganttbar[
+      bar/.append style={draw=\coloreighthgroup, fill=\coloreighthgroupchildbg},
+      name=E1
+  ]{Comparision with \textbf{top-down} approach}{31}{33} \\
+  \ganttbar[
+      bar/.append style={draw=\coloreighthgroup, fill=\coloreighthgroupchildbg},
       name=E2
   ]{Analysis of the benefits of \textbf{bottom-up} approach}{34}{36} \\ [grid]
 
   \ganttgroup[
-      group/.append style={draw=\coloreighthgroup, fill=\coloreighthgroupbg},
+      group/.append style={draw=\colorninthgroup, fill=\colorninthgroupbg},
     name=Thesis
 ]{Thesis writing}{31}{39} \\
   \ganttvrule[ vrule/.append style={draw=gray, thick} ]{}{6}
