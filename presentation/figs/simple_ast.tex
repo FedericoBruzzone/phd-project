@@ -1,0 +1,80 @@
+\documentclass[border=10pt,tikz,multi]{standalone}
+% \usetikzlibrary{shapes.geometric, positioning, arrows.meta}
+\usetikzlibrary{positioning,shadows,arrows.meta,trees,shapes,fit}
+\usepackage{fullpage}
+\usepackage{calc}
+
+\begin{document}
+
+\begin{tikzpicture}
+[font=\small, edge from parent,
+    ->, >=Stealth,
+    every node/.style={top color=white, bottom color=black!25,
+    rectangle,rounded corners, minimum size=6mm, draw=black!75,
+    very thick, drop shadow, align=center},
+    edge from parent/.style={draw=black!50,thick},
+    level 1/.style={sibling distance=8cm},
+    level 2/.style={sibling distance=4cm},
+    level 3/.style={sibling distance=3cm},
+    level distance=1.5cm,
+    ]
+%     \node (A) {A}
+%         child { node (B) {B}
+%             child { node {B1}
+%             edge from parent node[left=.5em,draw=none] {$\chi^2$} }
+%             child { node {B2}}
+%             }
+%         child {node (C) {C}
+%             child { node {C1}
+%                 child { node {C1a}}
+%             }
+%         child { node {C2}}
+%         child { node {C3}
+%             child { node {C3a}}
+%             child { node {C3b} edge from parent node[right=.5em,draw=none] {$\frac{a}{b}$}}
+%             }
+%         }
+%     child { node {D}
+%         child { node {D1}}
+%         child { node {D2}}
+% };
+
+    \node (root) {Root}
+        child { node (sum1) {\textbf{function} \\ sum1}
+            child { node {\textbf{parameters}}
+              child { node {\textbf{identifier} \\ \textcolor{blue}{x}} }
+            }
+            % edge from parent node[left=.5em,draw=none] {$\chi^2$} }
+            child { node {\textbf{body}}
+              child { node {\textbf{return}}
+                child { node {\textbf{call\_expr}}
+                  child { node {\textbf{identifier} \\ \textcolor{red}{sum}} }
+                  child { node {\textbf{arguments}}
+                    child { node {\textbf{identifier} \\ \textcolor{blue}{x}} }
+                    child { node {\textbf{number} \\ 1} }
+                  }
+                }
+              }
+           }
+        }
+        child { node (sum1) {\textbf{function} \\ \textcolor{red}{sum}}
+            child { node {\textbf{parameters}}
+              child { node {\textbf{identifier} \\ \textcolor{blue}{x}} }
+              child { node {\textbf{identifier} \\ \textcolor{violet}{y}} }
+            }
+            % edge from parent node[left=.5em,draw=none] {$\chi^2$} }
+            child { node {\textbf{body}}
+              child { node {\textbf{return}}
+                child { node {\textbf{bin\_expr} \\ +}
+                    child { node {\textbf{identifier} \\ \textcolor{blue}{x}} }
+                    child { node {\textbf{identifier} \\ \textcolor{violet}{y}} }
+                }
+              }
+           }
+        };
+
+\end{tikzpicture}
+
+\end{document}
+
+

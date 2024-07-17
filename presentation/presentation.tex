@@ -1,0 +1,1072 @@
+\documentclass[9pt,xcolor=table,svgnames]{beamer}
+\usepackage{showcode}
+% \usetheme{adapt-lab}
+\usetheme{customadapt-lab}
+
+% \usepackage{MnSymbol}
+\let\Square\undefined
+\usepackage{bbding}
+\usepackage{pifont}
+\usepackage{txfonts}
+
+\usepackage{tabularx}
+% \usepackage{bibentry}
+\usepackage{booktabs}
+\usepackage{tikz}
+
+
+\usepackage{enumitem}
+\usepackage{makecell}
+\usepackage{colortbl}
+\usepackage{wasysym}
+\usepackage{booktabs}
+\usepackage[table]{xcolor}
+
+\usetikzlibrary{angles,shadows.blur,positioning,backgrounds}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\newcommand{\globalminwidth}{15cm}
+\newcommand{\globalminheight}{12cm}
+\newcommand{\scopeminwidth}{((\globalminwidth - 1cm) / 2 - 0.5cm)}
+\newcommand{\scopeminheight}{(\globalminheight / 3)}
+
+\setlist[itemize,1]{label=\alert{--}}
+
+\usepackage{media9}
+
+\title[Universal LSP and DAP for Modular LWs]{Universal Language Server Protocol and Debugger Adapter Protocol for Modular Language Workbenches}
+% \author{Federico Cristiano Bruzzone}
+% \institute{Università degli Studi di Milano \\
+%            Facoltà di Scienze e Tecnologie \\
+%            Corso di Laurea Magistrale in Informatica \\ [5pt]\vspace{15pt}
+%            {\normalsize Advisor: Prof. Walter Cazzola} \\ [1pt]\vspace{5pt}
+%            {\normalsize Co-Advisor: Dr. Luca Favalli}}
+% \date{July 15\textsuperscript{th} 2024}
+
+\author[Federico Bruzzone]
+{
+    \vspace{-10pt}Federico Bruzzone
+    % \\\vspace{7pt}{\scriptsize Id. Number: 27427A}
+}
+
+\institute{\small
+	Universit\`a degli Studi di Milano\\
+	Computer Science Department\\
+	% MSc in Computer Science\\\vspace{10pt}
+    PhD Candidate in Computer Science\\
+}
+\date{\scriptsize{22/07/2024\\Cyclus 40th}}
+
+\tolerance=10
+\emergencystretch=\maxdimen
+\hyphenpenalty=10000
+\hbadness=10000
+
+
+
+\begin{document}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\section{Problem Statement}
+
+\subsection[ ]{Programming Language Implementation}
+\begin{frame}{\secname}
+    \framesubtitle{\subsecname}
+    The implementation of a programming language is a complex task that involves several implementation aspects, such as:
+
+    \begin{tabular}{p{0.5\textwidth} p{0.5\textwidth}}
+        \begin{itemize}
+            \item Syntax and semantics definition
+            \item \alert{Type system definition}
+            \item Code generation
+        \end{itemize}
+        &
+        \begin{itemize}
+            \item Error handling
+            \item \alert{IDE support}
+            \item Documentation
+        \end{itemize}
+    \end{tabular}
+
+    \pause
+
+    % \huge
+    It is usually done in a \alert{monolithic} way with a \alert{top-down} approach, where all the aspects are tightly coupled.
+
+    \pause
+    \bigskip
+
+    \normalsize This makes the \alert{maintainability}, \alert{extensibility} and \alert{reusability} of the implementation difficult.
+\end{frame}
+
+% ============================================================================
+
+\section[LSP \& DAP]{LSP and DAP}
+
+\subsection[In a Nutshell]{In a Nutshell}
+\begin{frame}{\secname}
+    \framesubtitle{\subsecname}
+
+    In 2016, \alert{Microsoft} in collaboration with \alert{Red Hat} introduced the \alert{Language Server Protocol} (LSP) and the \alert{Debugger Adapter Protocol} (DAP).
+
+    \pause
+
+    \bigskip
+    The \alert{LSP} and \alert{DAP} are \alert{JSON-RPC} based protocols that allow the communication between a \alert{Language Server} and an \alert{IDE}.
+
+    \pause
+
+    \begin{center}
+    \includegraphics[width=0.8\textwidth]{figs/lsp-diagram.pdf}
+    \end{center}
+
+    \begin{tabular}{p{0.5\textwidth} p{0.5\textwidth}}
+    Intrinsic properties:
+    \begin{itemize}
+        \item Language-agnostic
+        \item IDE-agnostic
+        \item Asynchronous
+        \item Text-based
+    \end{itemize}
+        &
+    Features:
+    \begin{itemize}
+        \item Diagnostics
+        \item Hover
+        \item Go to definition
+        \item Find references
+    \end{itemize}
+    \end{tabular}
+\end{frame}
+
+\subsection[The Reductions of Combinations]{The Reduction of Combinations}
+\begin{frame}{\secname}
+    \framesubtitle{\subsecname}
+
+    Initially implemented for Visual Studio Code, the LSP and DAP have been adopted by several \alert{IDEs} and \alert{programming languages}.
+
+    \pause
+    \begin{center}
+    \includegraphics[width=0.9\textwidth]{figs/lsp-combination.pdf}
+    \end{center}
+\end{frame}
+
+\subsection[An Achievement]{What would be an important achievement?}
+\begin{frame}{\secname}
+    \framesubtitle{\subsecname}
+
+    Reducing the number of combinations between \alert{Language Servers} and \alert{IDEs}.
+
+    \pause
+
+    \begin{center}
+    \includegraphics[width=0.9\textwidth]{figs/lsp-combination-lx1.pdf}
+    \end{center}
+
+    \pause
+    \huge Spoiler:
+    \normalsize \alert{It should be possible!} and maybe we can do better.
+\end{frame}
+
+% ============================================================================
+
+\section[FOP]{Feature-Oriented Programming}
+% \subsection[A Brief Introduction]{A Brief Introduction to FOP}
+
+\begin{frame}{\secname}
+    % \framesubtitle{\subsecname}
+
+    \alert{Feature-Oriented Programming} (FOP) is a programming paradigm that allows the development of \alert{software product lines} (SPLs).
+
+    \pause
+
+    \bigskip
+    \begin{itemize}
+        \item[\alert{-}] \alert{Feature} is a unit of functionality that satisfies a requirement.
+        \item[\alert{-}] \alert{Feature Model} is a model that represents the variability of the SPL.
+        \item[\alert{-}] \alert{Feature Configuration} is a set of features that compose a product.
+    \end{itemize}
+\end{frame}
+
+
+% ============================================================================
+
+\section[LWs]{Language Workbenches}
+% \subsection[Comparison]{Comparison of Language Workbenches}
+
+\begin{frame}{\secname}
+    % \framesubtitle{\subsecname}
+
+    \alert{Language Workbenches} (LWs) are tools that allow the development of programming languages, both GPLs and DSLs.
+
+    % \scriptsize Some LWs allow the development of LPLs.
+
+    \begin{table}[t]
+        \rowcolors{1}{white}{gray!25}
+        % \setlength\arrayrulewidth{-1pt}
+        \centering
+        \resizebox{\textwidth}{!}{%
+        \begin{tabular}{ c c c c c c }
+            % \makecell{Language \\ Workbench}
+            % \toprule \textbf{Language Workbench} & \textbf{Modularization Supp.} & \textbf{Precompiled Feature Supp.} & \textbf{Native IDE gen.} & \textbf{LSP Gen.} & \textbf{LSP Mod.} \\
+            \toprule
+            \multicolumn{1}{c}{\cellcolor{gray!25}\makecell{ \\ Language \\ Workbench}} &
+            \multicolumn{1}{c}{\cellcolor{gray!25}\makecell{ \\ Modularization \\ Supp.}} &
+            \multicolumn{1}{c}{\cellcolor{gray!25}\makecell{Precompiled \\ Feature \\ Supp.}} &
+            \multicolumn{1}{c}{\cellcolor{gray!25}\makecell{Native \\ IDE \\ gen.}} &
+            \multicolumn{1}{c}{\cellcolor{gray!25}\makecell{\\ LSP \& DAP \\ Gen.}} &
+            \multicolumn{1}{c}{\cellcolor{gray!25}\makecell{\\ LSP \& DAP \\ Mod.}} \\
+            \midrule
+            JustAdd & \LEFTcircle & \Circle & \Circle & \Circle & \Circle \\
+            Melange & $\circledwedge$ & \Circle  & \makecell{3rd p.} & \ding{80} & \ding{80} \\
+            MontiCore & \LEFTcircle & \LEFTcircle & \CIRCLE & \Circle & \Circle \\
+            MPS & $\circledwedge$ & \Circle   & \CIRCLE & \ding{80} & \ding{80} \\
+            Rascal & \Circle & \Circle & \CIRCLE & \Circle & \Circle \\
+            Spoofax & $\circledwedge$  & \LEFTcircle  & \CIRCLE & \ding{80} & \ding{80} \\
+            Xtext & \Circle & \LEFTcircle  & \CIRCLE & \CIRCLE & \Circle \\
+            Neverlang & $\circledvee$ & \CIRCLE & \Circle & \FiveStarConvex & \FiveStarConvex \\
+            \bottomrule
+        \end{tabular}
+        }
+        % \caption{Comparison of language workbenches in terms of modularization, precompiled feature support, native IDE generation, LSP generation, and LSP modularization. The $\CIRCLE$ symbol indicates full support, $\Circle$ no support, $\LEFTcircle$ limited support, $\circledvee$ fine-grained modularization,  $\circledwedge$ coarse-grained modularization, \FiveStarConvex my expected contribution and \ding{79} my expected contribution that can be extended to all LWs that support at least component modularization.}
+        \label{tab:lw-comparison}
+    \end{table}
+
+    % \bigskip
+    \begin{tabular}{p{0.5\textwidth} p{0.5\textwidth}}
+    \begin{itemize}
+        \item[{\color{black}\CIRCLE}] Full support
+        \item[{\color{black}\Circle}] No support
+        \item[{\color{black}\LEFTcircle}] Limited support
+        \item[{\color{black}$\circledvee$}] Fine-grained mod.
+    \end{itemize}
+    &
+    \begin{itemize}
+        \item[{\color{black}$\circledwedge$}] Coarse-grained mod.
+        \item[{\color{black}\FiveStarConvex}] My expected contribution
+        \item[{\color{black}\ding{80}}] Extended contribution
+        \item[{\color{black}3rd p.}] Third-party
+   \end{itemize}
+   \end{tabular}
+
+    % \pause
+
+    % \normalsize \alert{Neverlang} is a language workbench, developed by the \alert{ADAPT} lab, that supports the development of LPLs.
+
+\end{frame}
+
+% ============================================================================
+
+ % Quello che abbiamo fatto è stato sviluppare un approccio modulare
+ % nell'implementazione dei sistemi di tipi e nell'aggiunta opzionale
+ % di fasi di compilazione per fare type checking e type inference e
+ % per la generazione dell'LSP.
+ % Questo approccio modulare è stato implementato in Neverlang,
+ % ma è applicabile a qualsiasi linguaggio che supporti la modularizzazione.
+
+\section[Scientific Contribution]{Scientific Contribution}
+\subsection[]{}
+\begin{frame}{\secname}
+    \framesubtitle{\subsecname}
+
+    \begin{itemize}[itemsep=10pt]
+        \item \alert{Methodology} for whole LWs that support at least component modularization.
+        \item {\color{green}Type System},  LSP and DAP \alert{Modularization}.
+        \item {\color{green}DSL} for Type System definition.
+        \item \alert{LSP} and \alert{DAP} generation for Neverlang languages.
+        \item \alert{Clients} and \alert{Syntax Highlighting} generation reducing the number of combinations.
+        \item Implementation of a \alert{Java Library} for \alert{Neverlang} to support the type system, LSP and DAP for every language developed with Neverlang.
+        \item 3 \alert{use cases} to show the effectiveness of the methodology.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{\secname}
+    \framesubtitle{\subsecname}
+
+    \begin{center}
+        \includegraphics[width=0.9\textwidth]{figs/lsp-combination-nx1.pdf}
+    \end{center}
+\end{frame}
+
+
+\subsection[Type System Components]{Type System Components}
+
+\begin{frame}{\secname}
+    \framesubtitle{\subsecname}
+    % \includegraphics[width=0.8\textwidth, left]{figs/type-system.pdf}
+
+    \resizebox{0.8\textwidth}{!}{
+    \begin{tikzpicture}
+
+    % FIRST TRY
+    % \node[draw, very thick, rounded corners, fill=Black!10, blur shadow={shadow blur steps=5}, minimum width=10cm, minimum height=6cm] (LV) {};
+    % \node[] (LV_label) [above right=0cm and 0cm of LV.north west] {Language Variant};
+
+    % SECOND TRY
+    % \node[draw, rectangle, very thick, rounded corners, fill=Black!10, blur shadow={shadow blur steps=5}, minimum width=10cm, minimum height=6cm, label={[above left=0pt]Language Variant}] (LV) {};
+
+    % THIRD TRY
+    \node[draw=brown,
+          rectangle,
+          very thick,
+          rounded corners,
+          fill=brown!20,
+          blur shadow={shadow blur steps=5},
+          minimum width=\globalminwidth,
+          minimum height=\globalminheight] (GS) at (0,0) {};
+    \node[text=brown, above right] (GST) at (GS.north west) {Global Scope};
+
+    % ====================================================================
+    \uncover<2->{
+    \node[draw=blue,
+          text=blue,
+          rectangle,
+          very thick,
+          rounded corners,
+          fill=blue!20,
+          blur shadow={shadow blur steps=5},
+          minimum width=\globalminwidth - 1cm,
+          minimum height=\globalminheight / 4,
+          below=20pt] (TE) at (GS.north) {};
+    \node[text=blue, above right]  at (TE.north west) {Typing Environment (TE)};
+    }
+
+    \uncover<3->{
+       \node[draw=red,
+          text=red,
+          rectangle,
+          very thick,
+          rounded corners,
+          fill=red!20,
+          blur shadow={shadow blur steps=5},
+          minimum width=(\globalminwidth - 1cm) / 2 - 1cm,
+          minimum height=(\globalminheight / 4) - 30pt,
+          below right=20pt and 10pt] (TE1) at (TE.north west) {};
+        \node[text=red, above right] at (TE1.north west) {TE Entry $1$};
+
+    \node[draw=orange,
+          text=orange,
+          rectangle,
+          very thick,
+          rounded corners,
+          fill=orange!20,
+          blur shadow={shadow blur steps=5},
+          minimum width=((\globalminwidth - 1cm) / 2 - 1cm) / 2 - 0.5cm,
+          minimum height=((\globalminheight / 4) - 30pt) - 10pt,
+          below right=5pt and 5pt] (TEID1) at (TE1.north west) {ID $1$};
+    \node[draw=violet,
+          text=violet,
+          rectangle,
+          very thick,
+          rounded corners,
+          fill=violet!20,
+          blur shadow={shadow blur steps=5},
+          minimum width=((\globalminwidth - 1cm) / 2 - 1cm) / 2,
+          minimum height=((\globalminheight / 4) - 30pt) - 10pt,
+          below left=5pt and 5pt] (TEE2) at (TE1.north east) {Table Entry $1$};
+
+
+    % dots
+    \node[right=0.325cm] (Dots1) at (TE1.east) {$\cdots$};
+    \node[above] (Dots2) at (Dots1.north) {$\cdots$};
+    \node[below] (Dots3) at (Dots1.south) {$\cdots$};
+
+    \node[draw=red,
+          text=red,
+          rectangle,
+          very thick,
+          rounded corners,
+          fill=red!20,
+          blur shadow={shadow blur steps=5},
+          minimum width=(\globalminwidth - 1cm) / 2 - 1cm,
+          minimum height=(\globalminheight / 4) - 30pt,
+          below left=20pt and 10pt] (TEN) at (TE.north east) {};
+    \node[text=red, above right] at (TEN.north west) {TE Entry $N$};
+
+    \node[draw=orange,
+          text=orange,
+          rectangle,
+          very thick,
+          rounded corners,
+          fill=orange!20,
+          blur shadow={shadow blur steps=5},
+          minimum width=((\globalminwidth - 1cm) / 2 - 1cm) / 2 - 0.5cm,
+          minimum height=((\globalminheight / 4) - 30pt) - 10pt,
+          below right=5pt and 5pt] (TEIDN) at (TEN.north west) {ID $N$};
+
+    \node[draw=violet,
+          text=violet,
+          rectangle,
+          very thick,
+          rounded corners,
+          fill=violet!20,
+          blur shadow={shadow blur steps=5},
+          minimum width=((\globalminwidth - 1cm) / 2 - 1cm) / 2,
+          minimum height=((\globalminheight / 4) - 30pt) - 10pt,
+          below left=5pt and 5pt] (TEEN) at (TEN.north east) {Table Entry $N$};
+      }
+
+    % ====================================================================
+    \uncover<4->{
+    \node[draw=purple,
+          text=purple,
+          rectangle,
+          very thick,
+          rounded corners,
+          fill=purple!20,
+          blur shadow={shadow blur steps=5},
+          minimum width=(\globalminwidth - 1cm) / 3,
+          minimum height=\globalminheight / 6,
+          below right=20pt and 20pt] (TS1) at (TE.south west) {};
+    \node[text=purple, above right] at (TS1.north west) {Type Definition $1$};
+    % \node<1>[text=purple, above right] at (TS1.north west) {Type Definition $1$};
+    % \node<2>[text=purple, above right, fill=red] at (TS1.north west) {Type Definition $1$};
+
+    \node[draw=olive,
+          text=olive,
+          rectangle,
+          very thick,
+          rounded corners,
+          fill=olive!20,
+          blur shadow={shadow blur steps=5},
+          minimum width=(((\globalminwidth - 1cm) / 3) / 2) - 0.5cm,
+          minimum height=(\globalminheight / 6) - 10pt,
+          below right=5pt and 5pt] (TY1) at (TS1.north west) {Type $1$};
+
+     \node[draw=teal,
+          text=teal,
+          rectangle,
+          very thick,
+          rounded corners,
+          fill=teal!20,
+          blur shadow={shadow blur steps=5},
+          minimum width=(((\globalminwidth - 1cm) / 3) / 2) - 0.5cm,
+          minimum height=(\globalminheight / 6) - 10pt,
+          below left=5pt and 5pt] (SGN1) at (TS1.north east) {Signature $1$};
+
+
+    % dots
+    \node[right=(\globalminwidth - 1cm) / 11] (Dots1) at (TS1.east) {$\cdots$};
+    \node[above] (Dots2) at (Dots1.north) {$\cdots$};
+    \node[below] (Dots3) at (Dots1.south) {$\cdots$};
+
+    \node[draw=purple,
+          text=purple,
+          rectangle,
+          very thick,
+          rounded corners,
+          fill=purple!20,
+          blur shadow={shadow blur steps=5},
+          minimum width=(\globalminwidth - 1cm) / 3,
+          minimum height=\globalminheight / 6,
+          below left=20pt and 20pt] (TS2) at (TE.south east) {};
+    \node[text=purple, above right] at (TS2.north west) {Type Definition $M$};
+
+    \node[draw=olive,
+          text=olive,
+          rectangle,
+          very thick,
+          rounded corners,
+          fill=olive!20,
+          blur shadow={shadow blur steps=5},
+          minimum width=(((\globalminwidth - 1cm) / 3) / 2) - 0.5cm,
+          minimum height=(\globalminheight / 6) - 10pt,
+          below right=5pt and 5pt] (TY2) at (TS2.north west) {Type $M$};
+
+    \node[draw=teal,
+          text=teal,
+          rectangle,
+          very thick,
+          rounded corners,
+          fill=teal!20,
+          blur shadow={shadow blur steps=5},
+          minimum width=(((\globalminwidth - 1cm) / 3) / 2) - 0.5cm,
+          minimum height=(\globalminheight / 6) - 10pt,
+          below left=5pt and 5pt] (SGN2) at (TS2.north east) {Signature $M$};
+    }
+
+    % ====================================================================
+    \node[draw=RawSienna,
+          text=RawSienna,
+          rectangle,
+          very thick,
+          rounded corners,
+          fill=RawSienna!20,
+          blur shadow={shadow blur steps=5},
+          minimum width=\scopeminwidth,
+          minimum height=\scopeminheight,
+          below right=100pt and 0pt] (S1) at (TE.south west) {};
+    \node[text=RawSienna, above right] (S1T) at (S1.north west) {Scope $1$};
+
+    \node[right=0.125cm] (Dots1) at (S1.east) {$\cdots$};
+    \node[above] (Dots2) at (Dots1.north) {$\cdots$};
+    \node[below] (Dots3) at (Dots1.south) {$\cdots$};
+
+    \node[draw=RawSienna,
+          text=RawSienna,
+          rectangle,
+          very thick,
+          rounded corners,
+          fill=RawSienna!20,
+          blur shadow={shadow blur steps=5},
+          minimum width=\scopeminwidth,
+          minimum height=\scopeminheight,
+          below left=100pt and 0pt] (SX) at (TE.south east) {};
+    \node[text=RawSienna, above right] (SXT) at (SX.north west) {Scope $X$};
+
+    % ====================================================================
+
+    \uncover<5->{
+    \node[draw=YellowOrange,
+          text=YellowOrange,
+          rectangle,
+          very thick,
+          rounded corners,
+          fill=YellowOrange!20,
+          blur shadow={shadow blur steps=5},
+          minimum width=0.2cm,
+          minimum height=0.2cm,
+          below right = 0pt and 0pt] (P1) at (S1.north west) {};
+    % Arrow from P1 to GST
+    \draw[YellowOrange, ->, very thick] (P1) to[out=180, in=180] (GST.west);
+    }
+
+    \uncover<2->{
+    \node[draw=blue,
+          text=blue,
+          rectangle,
+          very thick,
+          rounded corners,
+          fill=blue!20,
+          blur shadow={shadow blur steps=5},
+          minimum width=\scopeminwidth - 1cm,
+          minimum height=\scopeminheight / 4,
+          below=5pt] (TE) at (S1.north) {Typing Environment};
+      }
+
+    % ====================================================================
+    \uncover<4->{
+    \node[draw=purple,
+          text=purple,
+          rectangle,
+          very thick,
+          rounded corners,
+          fill=purple!20,
+          blur shadow={shadow blur steps=5},
+          minimum width=(\scopeminwidth - 1cm) / 3,
+          minimum height=\scopeminheight / 6,
+          below right=10pt and 0pt] (TS1) at (TE.south west) {Type Def $1$};
+
+    % dots
+    \node[right=(\scopeminwidth - 2cm) / 11] (Dots1) at (TS1.east) {$\cdots$};
+
+    \node[draw=purple,
+          text=purple,
+          rectangle,
+          very thick,
+          rounded corners,
+          fill=purple!20,
+          blur shadow={shadow blur steps=5},
+          minimum width=(\scopeminwidth - 1cm) / 3,
+          minimum height=\scopeminheight / 6,
+          below left=10pt and 0pt] (TS2) at (TE.south east) {Type Def $M$};
+      }
+
+    \node[draw=Brown,
+          text=Brown,
+          rectangle,
+          very thick,
+          rounded corners,
+          fill=Brown!20,
+          blur shadow={shadow blur steps=5},
+          minimum width=\scopeminwidth / 2.7,
+          minimum height=\scopeminheight / 4 + 10pt,
+          below right=35pt and 0pt] (SI1) at (TE.south west) {Scope $1$};
+
+    \uncover<5->{
+    \node[draw=YellowOrange,
+          text=YellowOrange,
+          rectangle,
+          very thick,
+          rounded corners,
+          fill=YellowOrange!20,
+          blur shadow={shadow blur steps=5},
+          minimum width=0.2cm,
+          minimum height=0.2cm,
+          below right = 0pt and 0pt] (PP1) at (SI1.north west) {};
+    \draw[YellowOrange, ->, very thick] (PP1) to[out=180, in=180] (S1T.west);
+
+    \node[right=0cm] (Dots1) at (SI1.east) {$\cdots$};
+    }
+
+    \node[draw=Brown,
+          text=Brown,
+          rectangle,
+          very thick,
+          rounded corners,
+          fill=Brown!20,
+          blur shadow={shadow blur steps=5},
+          minimum width=\scopeminwidth / 2.7,
+          minimum height=\scopeminheight / 4 + 10pt,
+          below left=35pt and 0pt] (SIX) at (TE.south east) {Scope $X$};
+
+    \uncover<5->{
+    \node[draw=YellowOrange,
+          text=YellowOrange,
+          rectangle,
+          very thick,
+          rounded corners,
+          fill=YellowOrange!20,
+          blur shadow={shadow blur steps=5},
+          minimum width=0.2cm,
+          minimum height=0.2cm,
+          below right = 0pt and 0pt] (PPX) at (SIX.north west) {};
+    \draw[YellowOrange, ->, very thick] (PPX) to[out=0, in=0] (S1T.east);
+    }
+
+
+    % ====================================================================
+
+    % ====================================================================
+    \uncover<5->{
+    \node[draw=YellowOrange,
+          text=YellowOrange,
+          rectangle,
+          very thick,
+          rounded corners,
+          fill=YellowOrange!20,
+          blur shadow={shadow blur steps=5},
+          minimum width=0.2cm,
+          minimum height=0.2cm,
+          below right = 0pt and 0pt] (P1) at (SX.north west) {};
+    % Arrow from P1 to GST
+    \draw[YellowOrange, ->, very thick] (P1) to[out=0, in=0] (GST.east);
+    }
+
+    \uncover<2->{
+    \node[draw=blue,
+          text=blue,
+          rectangle,
+          very thick,
+          rounded corners,
+          fill=blue!20,
+          blur shadow={shadow blur steps=5},
+          minimum width=\scopeminwidth - 1cm,
+          minimum height=\scopeminheight / 4,
+          below=5pt] (TE) at (SX.north) {Typing Environment};
+      }
+
+
+    % ====================================================================
+    \uncover<4->{
+    \node[draw=purple,
+          text=purple,
+          rectangle,
+          very thick,
+          rounded corners,
+          fill=purple!20,
+          blur shadow={shadow blur steps=5},
+          minimum width=(\scopeminwidth - 1cm) / 3,
+          minimum height=\scopeminheight / 6,
+          below right=10pt and 0pt] (TS1) at (TE.south west) {Type Def $1$};
+
+    % dots
+    \node[right=(\scopeminwidth - 2cm) / 11] (Dots1) at (TS1.east) {$\cdots$};
+
+    \node[draw=purple,
+          text=purple,
+          rectangle,
+          very thick,
+          rounded corners,
+          fill=purple!20,
+          blur shadow={shadow blur steps=5},
+          minimum width=(\scopeminwidth - 1cm) / 3,
+          minimum height=\scopeminheight / 6,
+          below left=10pt and 0pt] (TS2) at (TE.south east) {Type Def $M$};
+      }
+
+    \node[draw=Brown,
+          text=Brown,
+          rectangle,
+          very thick,
+          rounded corners,
+          fill=Brown!20,
+          blur shadow={shadow blur steps=5},
+          minimum width=\scopeminwidth / 2.7,
+          minimum height=\scopeminheight / 4 + 10pt,
+          below right=35pt and 0pt] (SI1) at (TE.south west) {Scope $1$};
+
+
+    \uncover<5->{
+    \node[draw=YellowOrange,
+          text=YellowOrange,
+          rectangle,
+          rounded corners,
+          fill=YellowOrange!20,
+          blur shadow={shadow blur steps=5},
+          minimum width=0.2cm,
+          minimum height=0.2cm,
+          below right = 0pt and 0pt] (PP1) at (SI1.north west) {};
+    \draw[YellowOrange, ->, very thick] (PP1) to[out=180, in=180] (SXT.west);
+
+    \node[right=0cm] (Dots1) at (SI1.east) {$\cdots$};
+    }
+
+    \node[draw=Brown,
+          text=Brown,
+          rectangle,
+          very thick,
+          rounded corners,
+          fill=Brown!20,
+          blur shadow={shadow blur steps=5},
+          minimum width=\scopeminwidth / 2.7,
+          minimum height=\scopeminheight / 4 + 10pt,
+          below left=35pt and 0pt] (SIX) at (TE.south east) {Scope $X$};
+    \uncover<5->{
+    \node[draw=YellowOrange,
+          text=YellowOrange,
+          rectangle,
+          very thick,
+          rounded corners,
+          fill=YellowOrange!20,
+          blur shadow={shadow blur steps=5},
+          minimum width=0.2cm,
+          minimum height=0.2cm,
+          below right = 0pt and 0pt] (PPX) at (SIX.north west) {};
+    \draw[YellowOrange, ->, very thick] (PPX) to[out=0, in=0] (SXT.east);
+    }
+    \end{tikzpicture}
+    }
+\end{frame}
+
+\subsection[Checking and Inference]{Type Checking and Type Inference}
+\begin{frame}{\secname}
+    \framesubtitle{\subsecname}
+    \begin{onlyenv}<1>
+        \begin{center}
+        \slidejs*[0.5\textwidth]{sum.js}
+        \end{center}
+    \end{onlyenv}
+
+    \begin{onlyenv}<2>
+    \begin{tabular}{p{0.5\textwidth} p{0.5\textwidth}}
+        \slidejs*[0.5\textwidth]{sum.js}
+        &
+        \vspace{0.5cm}
+            \begin{itemize}
+                \item Compilation Unit
+                \item Compilation Unit Task
+                \item Compilation Helper
+            \end{itemize}
+    \end{tabular}
+    \end{onlyenv}
+
+
+    \vspace{-0.5cm}
+    \begin{center}
+    \includegraphics<1>[width=0.9\linewidth, height=0.7\textheight]{figs/simple_ast.pdf}
+    \includegraphics<2>[width=0.9\linewidth, height=0.7\textheight]{figs/simple_ast_annotated.pdf}
+    \end{center}
+\end{frame}
+
+% ============================================================================
+\subsection[Modularization]{TSs, LSP and DAP Modularization}
+
+\begin{frame}{\secname}
+    \framesubtitle{\subsecname}
+    \begin{center}
+    % \includegraphics[width=1.2\textwidth]{figs/module_with_lsp.pdf}
+
+    \resizebox{1\textwidth}{!}{
+    \begin{tikzpicture}
+        % dashed,
+            % \draw[dashed, very thick, rounded corners, anchor=north]
+            %         (3.75,-0.25) rectangle (8.25,3.75)
+            %         node[anchor=north, align=center] at (6.125,4.25) {$\mathcal{L} + \mathcal{E}$};
+
+        % ============================
+        \uncover<5->{
+        \draw[Black!30, very thick, rounded corners, anchor=north, fill=Black!10, blur shadow={shadow blur steps=5}]
+                (-1, -1) rectangle (10.5, 6.75)
+                node[anchor=north, align=center] at (4.75,7.25) {\color{black}{Language Variant}};
+        }
+
+        % ============================
+        \uncover<4->{
+        \draw[dotted, very thick, rounded corners, anchor=north]
+                (-0.25,-0.35) rectangle (6.375, 5.85)
+                node[anchor=north, align=center] at (1,6.35) {Language Feature 1};
+
+        \draw[dotted, very thick, rounded corners, anchor=north]
+                (3.125,-0.15) rectangle (9.75, 5.65)
+                node[anchor=north, align=center] at (8.5,6.15) {Language Feature 2};
+        }
+
+        % ============================
+
+        \uncover<1->{
+        \draw[Orange, very thick, rounded corners, anchor=north, fill=Orange!20, blur shadow={shadow blur steps=5}]
+                (0,0) rectangle (3, 5)
+                node[anchor=north, align=center] at (1.5,5.5) {Artifact 1};
+
+        \draw[Red, very thick, rounded corners, fill=Red!20, blur shadow={shadow blur steps=5}]
+            (3.25,0) rectangle (6.25,5)
+            node[anchor=north, align=center] at (4.75,5.5) {Artifact 2};
+
+        \draw[Blue, very thick, rounded corners, fill=Blue!20, blur shadow={shadow blur steps=5}]
+            (6.5,0) rectangle (9.5,5)
+            node[anchor=north, align=center] at (8,5.5) {Artifact 3};
+        }
+
+        % ============================
+        \uncover<9->{
+        \draw[Brown, very thick, rounded corners, fill=Brown!20, fill opacity=0.5]
+                (-0.5,0.0625) rectangle (10, 1.1875)
+                node[] at (12.1,0.825) {
+                        \begin{minipage}{3cm}
+                          \scriptsize
+                          \begin{equation*}
+                          \textbf{DAP Variant}
+                          \left\{\begin{array}{@{}l@{}}
+                              \textrm{Feature 1} \\
+                              \textrm{Feature 2} \\
+                              \textrm{Feature 3} \\
+                          \end{array}\right.
+                          \end{equation*}
+                        \end{minipage}
+                 };
+
+                 %     \node[right=0.5cm of PIPPO.east, anchor=west] {
+                 %        \begin{minipage}{3cm}
+                 %          \begin{equation*}
+                 %          \textbf{DAP Variant}
+                 %          \left\{\begin{array}{@{}l@{}}
+                 %              \textrm{Feature 1} \\
+                 %              \textrm{Feature 2} \\
+                 %              \textrm{Feature 3} \\
+                 %          \end{array}\right.
+                 %          \end{equation*}
+                 %        \end{minipage}
+                 % };
+        }
+
+
+        \uncover<8->{
+        \draw[Brown, very thick, rounded corners, fill=Brown!20, fill opacity=0.5]
+                (-0.5,1.3125) rectangle (10, 2.4375)
+                node[] at (12.1,2.075) {
+                        \begin{minipage}{3cm}
+                          \begin{equation*}
+                          \scriptsize
+                          \textbf{LSP Variant}\hspace{0.1cm}
+                          \left\{\begin{array}{@{}l@{}}
+                              \textrm{Feature 1} \\
+                              \textrm{Feature 2} \\
+                              \textrm{Feature 3} \\
+                          \end{array}\right.
+                          \end{equation*}
+                        \end{minipage}
+                };
+        }
+
+        % ============================
+
+        \uncover<2->{
+        \draw[OliveGreen, very thick, rounded corners, fill=OliveGreen!20, blur shadow={shadow blur steps=5}]
+            (0.25,3.875) rectangle (2.75,4.875)
+            node[pos=.5] {Syntax};
+        }
+
+        \uncover<3->{
+        \draw[MidnightBlue, very thick, rounded corners, fill=MidnightBlue!20, blur shadow={shadow blur steps=5}]
+            (0.25,2.625) rectangle (1.3,3.625)
+            node[pos=.5] {Sem.1};
+
+        \draw[MidnightBlue, very thick, rounded corners, fill=MidnightBlue!20, blur shadow={shadow blur steps=5}]
+            (1.7,2.625) rectangle (2.75,3.625)
+            node[pos=.5] {Sem.2};
+        }
+
+        \uncover<6->{
+        \draw[Orchid, very thick, rounded corners, fill=Orchid!20, blur shadow={shadow blur steps=5}]
+            (0.25,1.375) rectangle (1.9,2.375)
+            node[pos=.5] {F1};
+
+        \draw[Orchid, very thick, rounded corners, fill=Orchid!20, blur shadow={shadow blur steps=5}]
+            (2.05,1.375) rectangle (2.75,2.375)
+            node[pos=.5] {F2};
+        }
+
+        \uncover<7->{
+        \draw[BlueViolet, very thick, rounded corners, fill=BlueViolet!20, blur shadow={shadow blur steps=5}]
+            (0.25,0.125) rectangle (1.7,1.125)
+            node[pos=.5] {F1};
+
+        \draw[BlueViolet, very thick, rounded corners, fill=BlueViolet!20, blur shadow={shadow blur steps=5}]
+            (1.85,0.125) rectangle (2.75,1.125)
+            node[pos=.5] {F2};
+        }
+
+
+        % ============================
+
+        \uncover<2->{
+        \draw[OliveGreen, very thick, rounded corners, fill=OliveGreen!20, blur shadow={shadow blur steps=5}]
+            (3.5,3.875) rectangle (6,4.875)
+            node[pos=.5] {Syntax};
+        }
+
+        \uncover<3->{
+        \draw[MidnightBlue, very thick, rounded corners, fill=MidnightBlue!20, blur shadow={shadow blur steps=5}]
+            (3.5,2.625) rectangle (4.5,3.625)
+            node[pos=.5] {Sem.1};
+
+        \draw[MidnightBlue, very thick, rounded corners, fill=MidnightBlue!20, blur shadow={shadow blur steps=5}]
+            (4.95,2.625) rectangle (6,3.625)
+            node[pos=.5] {Sem.2};
+        }
+
+        \uncover<6->{
+        \draw[Orchid, very thick, rounded corners, fill=Orchid!20, blur shadow={shadow blur steps=5}]
+            (3.5,1.375) rectangle (4.2,2.375)
+            node[pos=.5] {F2};
+
+        \draw[Orchid, very thick, rounded corners, fill=Orchid!20, blur shadow={shadow blur steps=5}]
+            (4.35,1.375) rectangle (6,2.375)
+            node[pos=.5] {F3};
+        }
+
+        \uncover<7->{
+        \draw[BlueViolet, very thick, rounded corners, fill=BlueViolet!20, blur shadow={shadow blur steps=5}]
+            (3.5,0.125) rectangle (4.4,1.125)
+            node[pos=.5] {F2};
+
+        \draw[BlueViolet, very thick, rounded corners, fill=BlueViolet!20, blur shadow={shadow blur steps=5}]
+            (4.55,0.125) rectangle (6,1.125)
+            node[pos=.5] {F3};
+        }
+
+        % ============================
+
+
+        \uncover<2->{
+        \draw[OliveGreen, very thick, rounded corners, fill=OliveGreen!20, blur shadow={shadow blur steps=5}]
+            (6.75,3.875) rectangle (9.25,4.875)
+            node[pos=.5] {Syntax};
+        }
+
+        \uncover<3->{
+        \draw[MidnightBlue, very thick, rounded corners, fill=MidnightBlue!20, blur shadow={shadow blur steps=5}]
+            (6.75,2.625) rectangle (7.75,3.625)
+            node[pos=.5] {Sem.1};
+
+        \draw[MidnightBlue, very thick, rounded corners, fill=MidnightBlue!20, blur shadow={shadow blur steps=5}]
+            (8.2,2.625) rectangle (9.25,3.625)
+            node[pos=.5] {Sem.2};
+        }
+
+        \uncover<6->{
+        \draw[Orchid, very thick, rounded corners, fill=Orchid!20, blur shadow={shadow blur steps=5}]
+            (6.75,1.375) rectangle (7.45,2.375)
+            node[pos=.5] {F2};
+
+        \draw[Orchid, very thick, rounded corners, fill=Orchid!20, blur shadow={shadow blur steps=5}]
+            (7.6,1.375) rectangle (9.25,2.375)
+            node[pos=.5] {F3};
+        }
+
+        \uncover<7->{
+        \draw[BlueViolet, very thick, rounded corners, fill=BlueViolet!20, blur shadow={shadow blur steps=5}]
+            (6.75,0.125) rectangle (8.2,1.125)
+            node[pos=.5] {F1};
+
+        \draw[BlueViolet, very thick, rounded corners, fill=BlueViolet!20, blur shadow={shadow blur steps=5}]
+            (8.35,0.125) rectangle (9.25,1.125)
+            node[pos=.5] {F2};
+        }
+
+    \end{tikzpicture}
+    }
+
+    \end{center}
+\end{frame}
+
+
+% ============================================================================
+\section{Conclusions}
+
+\begin{frame}
+    \frametitle{\secname}
+    \framesubtitle{Master's Thesis Results}
+
+    \Large Interesting results:
+    \normalsize
+    \begin{itemize}
+        \item We are writing an article (\alert{Code Less to Code More}) to be submitted to \alert{JSS}.
+    \end{itemize}
+
+    \bigskip
+    \Large Interesting twist:
+    \normalsize
+    \begin{itemize}
+        \item Recycling the code of the \alert{TS} to define a new compilation phase inside of \alert{Neverlang}.
+    \end{itemize}
+\end{frame}
+
+
+% ============================================================================
+\begin{frame}
+    \begin{center}
+        \huge Thanks for your attention!
+    \end{center}
+\end{frame}
+% ============================================================================
+
+% ============================================================================
+% EXTRA
+
+\begingroup
+
+\begin{frame}[noframenumbering]
+    \frametitle{Software Product Lines}
+
+    Since 1990s, researchers have been working on the concept of \alert{Software Product Lines} (SPLs) to move towards a more \alert{modular} world.
+
+    \bigskip
+    \pause
+
+    \begin{itemize}
+        \item SPLs defines a \alert{family} of software products.
+        \item SPLs is described by a \alert{Feature Model}.
+        \item A Feature Model describes the \alert{variability} of the software.
+        \item SPL \alert{variants} are generated by selecting a set of features.
+        \item A \alert{feature} (or \alert{artifact}) is a first-class entity in SPLs.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[noframenumbering]
+    \frametitle{Language Product Lines}
+    Applying the concept of SPLs to programming languages, we obtain the concept of \alert{Language Product Lines} (LPLs).
+
+    \bigskip
+    \includegraphics[width=1\textwidth]{figs/feature-model.pdf}
+
+    \pause
+
+    \huge Some achievements:
+    \normalsize
+    \begin{itemize}
+        \item \alert{Bottom-up} approach to language implementation
+        \item \alert{Reusability} of language artifacts
+        \item Multiple \alert{variants} of the same language
+        \item \alert{Language Workbenches} come to the rescue
+    \end{itemize}
+\end{frame}
+
+\endgroup
+
+\end{document}

@@ -1,0 +1,122 @@
+\documentclass[border=10pt,tikz,multi]{standalone}
+\usetikzlibrary{angles,shadows.blur,positioning,backgrounds}
+\usepackage{forest}
+\definecolor{drawColor}{RGB}{128 128 128}
+\newcommand{\circleSize}{0.25em}
+\newcommand{\angleSize}{0.8em}
+
+\forestset{
+  declare count register=disjuncts from,
+  disjuncts from'=0,
+  declare count register=concrete from,
+  concrete from'=2,
+  concrete colour/.code={\colorlet{concretecol}{#1}},
+  abstract colour/.code={\colorlet{abstractcol}{#1}},
+  draw colour/.code={\colorlet{drawcol}{#1}},
+  concrete colour=gray,
+  abstract colour=white,
+  draw colour=black,
+  /tikz/mandatory/.style={circle, fill=drawcol, draw=drawcol, inner sep=\circleSize},
+  /tikz/optional/.style={circle, draw=drawcol, fill=white, inner sep=\circleSize},
+  /tikz/concrete/.style={fill=concretecol, draw=drawcol},
+  /tikz/abstract/.style={fill=abstractcol, draw=drawcol},
+  /tikz/or/.style={},
+  /tikz/alternative/.style={},
+  mandatory/.style={edge label={node [mandatory] {}}},
+  optional/.style={edge label={node [optional] {}}},
+  alternative/.style={
+     tikz+={
+        \path (.parent) coordinate (A) -- (!u.children) coordinate (B) -- (!ul.parent) coordinate (C) pic[draw=drawColor, angle radius=\angleSize] {angle};
+     }
+  },
+  or/.style={for first={disjunct}},
+  disjunct/.style={
+    tikz+={\path (.parent) coordinate (A) -- (!u.children) coordinate (B) -- (!ul.parent) coordinate (C) pic [fill=drawcol, angle radius=\angleSize] {angle};}
+  },
+  disjunction tree/.style={
+    where={isodd(n_children())}{
+      for n={int((n_children()+1)/2)}{calign with current},
+    }{
+      calign=midpoint,
+    },
+    before typesetting nodes={
+      % for nodewalk={
+      %   filter/.wrap pgfmath arg={{level>=##1}{n_children()>1}}{(disjuncts_from)}
+      % }{
+      %   or,
+      % },
+      % where={level()>=(concrete_from)}{
+      %   concrete,
+      % }{
+      %   abstract,
+      % },
+      tikz+={
+        [font=\sffamily]
+        \node (l) [anchor=north west, xshift=10pt] at (current bounding box.north east) {Legend};
+        \foreach \i/\j [remember=\i as \k (initially l)] in {mandatory/Mandatory,optional/Optional,or/Or,alternative/Alternative,abstract/Abstract,concrete/Concrete}
+        {
+          \node (\i) [below=20pt of \k.north, anchor=north, text centered, \i, minimum width=5pt,] {};
+          \node (\j) [right=15pt of \i.center -| mandatory.west, anchor=west] {\j};
+        };
+        \draw [drawcol] (alternative.south west) coordinate (A) -- (alternative.north) coordinate (B) -- (alternative.south east) coordinate (C) pic [draw=drawColor, angle radius=0.5em] {angle};
+        \draw [drawcol] (or.south west) coordinate (A) -- (or.north) coordinate (B) -- (or.south east) coordinate (C) pic [fill=drawcol, angle radius=5pt] {angle};
+        \foreach \i in {mandatory,optional} \draw [darkgray] (\i.north east) -- +(45:5pt);
+        \node (c) [below=0pt of Concrete.south] {};
+        \scoped[on background layer]{\node [draw, fill=white, blur shadow, fit=(l) (Mandatory) (Optional) (Or) (Alternative) (Abstract) (Concrete) (c), rounded corners] {};}
+      },
+    },
+    % ============ VERTICAL ============
+    for tree={
+      parent anchor=children,
+      child anchor=parent,
+      l'+=10mm,
+      blur shadow,
+      rounded corners,
+      text height=2ex,
+      text depth=.5ex,
+      font=\sffamily,
+    },
+    % ============ HORIZONTAL ============
+    % for tree={
+    %     grow = east,
+    %     anchor = west,
+    %     parent anchor = east,
+    %     child anchor = west,
+    %     l'+=10mm,
+    %     blur shadow,
+    %     rounded corners,
+    %     text height=2ex,
+    %     text depth=.5ex,
+    %     font=\sffamily,
+    % },
+  },
+}
+
+\begin{document}
+\begin{forest}% addaswyd o gôd Salim Bou: https://tex.stackexchange.com/a/335782/
+  disjunction tree,
+  disjuncts from'=1,
+  concrete from'=1,
+  concrete colour=blue!85!cyan!40,
+  abstract colour=blue!85!cyan!15,
+  draw colour=darkgray,
+  [Expression, concrete, mandatory,
+    [ Numbers, abstract, mandatory
+        [ AddExpr, concrete, mandatory, name=AddExpr ]
+        [ MulExpr, concrete, optional, name=MulExpr ]
+        [ UnaryExpr, concrete, optional, name=UnaryExpr ]
+        [ Numeric, concrete, optional, name=Numeric ]
+    ]
+    [ Primaries, abstract, optional
+        [ Primary, concrete, optional, name=Primary ]
+        [ PrimaryExpr, concrete, optional, name=PrimaryExpr ]
+    ]
+  ]
+  \draw[dashed, -{stealth}] (AddExpr)   to[out=280, in=260] (MulExpr);
+  \draw[dashed, -{stealth}] (MulExpr)   to[out=280, in=260] (UnaryExpr);
+  \draw[dashed, -{stealth}] (UnaryExpr) to[out=280, in=260] (Primary);
+  \draw[dashed, -{stealth}] (Primary)   to[out=280, in=260] (PrimaryExpr);
+  \draw[dashed, -{stealth}] (Primary)   to[out=280, in=260] (Numeric);
+\end{forest}
+\end{document}
+
