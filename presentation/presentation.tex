@@ -33,6 +33,9 @@
 
 \setlist[itemize,1]{label=\alert{--}}
 
+\colorlet{framecolor}{lime}
+\colorlet{bgcolor}{lime!30}
+
 \usepackage{media9}
 
 \title[Universal LSP and DAP for Modular LWs]{Universal Language Server Protocol and Debugger Adapter Protocol for Modular Language Workbenches}
@@ -167,9 +170,14 @@
     \includegraphics[width=0.9\textwidth]{figs/lsp-combination-lx1.pdf}
     \end{center}
 
-    \pause
-    \huge Spoiler:
-    \normalsize \alert{It should be possible!} and maybe we can do better.
+
+    \noindent\fcolorbox{framecolor}{bgcolor}{%%
+        \parbox{\textwidth}{%
+            \large \alert{RO 3}:
+            \normalsize Reduce to $\mathbf{L} \times \mathbf{1}$ the number of combinations to support $\mathbf{L}$ languages
+        }%
+    }%
+
 \end{frame}
 
 % ============================================================================
@@ -190,9 +198,25 @@
         \item[\alert{-}] \alert{Feature Model} is a model that represents the variability of the SPL.
         \item[\alert{-}] \alert{Feature Configuration} is a set of features that compose a product.
     \end{itemize}
+
+    \bigskip
+
+    \noindent\fcolorbox{framecolor}{bgcolor}{%%
+        \parbox{\textwidth}{%
+            \large \alert{RO 2}:
+            \normalsize Facilitate LSP and DAP Modularization
+        }%
+    }%
+
 \end{frame}
 
 
+\begin{frame}{\secname}
+    % \framesubtitle{\subsecname}
+    \begin{center}
+        \includegraphics[width=0.9\textwidth]{figs/lsp-combination-nx1.pdf}
+    \end{center}
+\end{frame}
 % ============================================================================
 
 \section[LWs]{Language Workbenches}
@@ -236,7 +260,7 @@
         \label{tab:lw-comparison}
     \end{table}
 
-    % \bigskip
+    \scriptsize
     \begin{tabular}{p{0.5\textwidth} p{0.5\textwidth}}
     \begin{itemize}
         \item[{\color{black}\CIRCLE}] Full support
@@ -253,10 +277,14 @@
    \end{itemize}
    \end{tabular}
 
-    % \pause
+   \normalsize
 
-    % \normalsize \alert{Neverlang} is a language workbench, developed by the \alert{ADAPT} lab, that supports the development of LPLs.
-
+    \noindent\fcolorbox{framecolor}{bgcolor}{%%
+        \parbox{\textwidth}{%
+           \large \alert{RO 1}:
+           \normalsize Improve IDE and LSP Generation
+        }%
+    }%
 \end{frame}
 
 % ============================================================================
@@ -275,22 +303,23 @@
 
     \begin{itemize}[itemsep=10pt]
         \item \alert{Methodology} for whole LWs that support at least component modularization.
-        \item {\color{green}Type System},  LSP and DAP \alert{Modularization}.
-        \item {\color{green}DSL} for Type System definition.
+        \item \alert{Type System},  LSP and DAP \alert{Modularization}.
+        \item \alert{DSL} for Type System definition.
         \item \alert{LSP} and \alert{DAP} generation for Neverlang languages.
         \item \alert{Clients} and \alert{Syntax Highlighting} generation reducing the number of combinations.
         \item Implementation of a \alert{Java Library} for \alert{Neverlang} to support the type system, LSP and DAP for every language developed with Neverlang.
         \item 3 \alert{use cases} to show the effectiveness of the methodology.
     \end{itemize}
+
+
+    \noindent\fcolorbox{framecolor}{bgcolor}{%%
+        \parbox{\textwidth}{%
+            \large \alert{RO 4}:
+            \normalsize Leverage Neverlang for LSP and DAP in LPL Development
+        }%
+    }%
 \end{frame}
 
-\begin{frame}{\secname}
-    \framesubtitle{\subsecname}
-
-    \begin{center}
-        \includegraphics[width=0.9\textwidth]{figs/lsp-combination-nx1.pdf}
-    \end{center}
-\end{frame}
 
 
 \subsection[Type System Components]{Type System Components}
@@ -1005,16 +1034,14 @@
 
     \Large Interesting results:
     \normalsize
-    \begin{itemize}
+    % More space between items
+    \begin{itemize}[itemsep=10pt]
         \item We are writing an article (\alert{Code Less to Code More}) to be submitted to \alert{JSS}.
+        \item Propose a \alert{feasibility study} for the methodology.
+        \item We \alert{prototyped} the reduction of combinations.
+        \item We \alert{prototyped} the modularization of the type system.
     \end{itemize}
 
-    \bigskip
-    \Large Interesting twist:
-    \normalsize
-    \begin{itemize}
-        \item Recycling the code of the \alert{TS} to define a new compilation phase inside of \alert{Neverlang}.
-    \end{itemize}
 \end{frame}
 
 

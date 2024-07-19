@@ -1,3 +1,37 @@
+# Research Objectives and Research Questions
+
+- RO 1: Improve IDE and LSP Generation
+
+    - RQ 1.1: How can IDE generation be improved to support LSP and DAP?
+
+    - RQ 1.2: What are the key challenges in generating LSP and DAP for different programming languages?
+
+    - RQ 1.3: How can a universal LSP and DAP be developed to support multiple languages and IDEs?
+
+-  RO 2: Facilitate LSP and DAP Modularization
+
+    - RQ 2.1: How can LSP and DAP modularization be facilitated in language workbenches?
+
+    - RQ 2.2: What are the key challenges in modularizing LSP and DAP for different programming languages?
+
+    - RQ 2.3: How can LSP and DAP modularization be integrated with existing language composition and modularization features in language workbenches?
+
+- RO 3: Reduce to L x 1 the number of combinations to support L languages
+
+    - RQ 3.1: How can the number of combinations required to support multiple languages be reduced to L × 1?
+
+    - RQ 3.2: In what ways does simplifying the development process for language support enhance efficiency?
+
+    - RQ 3.3: How does reducing combinations impact the speed and effectiveness of creating language support?
+
+- RO 4: Leverage Neverlang for LSP and DAP in LPL Development
+
+    - RQ 4.1: How can Neverlang’s LPL development features be leveraged for creating a reusable core for LSP and DAP functionalities?
+
+    - RQ 4.2: What are the key benefits of using Neverlang for LSP and DAP development in the context of LPLs?
+
+    - RQ 4.3: How does leveraging Neverlang’s LPL features enhance the scalability and efficiency of LSP and DAP development?
+
 # Language Workbenches
 
 - JustAdd -> Computer Science department of the Lund University (Lund, Sweden)
