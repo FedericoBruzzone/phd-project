@@ -173,7 +173,7 @@
 
     \noindent\fcolorbox{framecolor}{bgcolor}{%%
         \parbox{\textwidth}{%
-            \large \alert{RO 3}:
+            \large \alert{RO 1}:
             \normalsize Reduce to $\mathbf{L} \times \mathbf{1}$ the number of combinations to support $\mathbf{L}$ languages
         }%
     }%
@@ -281,7 +281,7 @@
 
     \noindent\fcolorbox{framecolor}{bgcolor}{%%
         \parbox{\textwidth}{%
-           \large \alert{RO 1}:
+           \large \alert{RO 3}:
            \normalsize Improve IDE and LSP Generation
         }%
     }%
@@ -319,8 +319,6 @@
         }%
     }%
 \end{frame}
-
-
 
 \subsection[Type System Components]{Type System Components}
 
@@ -772,37 +770,8 @@
     }
 \end{frame}
 
-\subsection[Checking and Inference]{Type Checking and Type Inference}
-\begin{frame}{\secname}
-    \framesubtitle{\subsecname}
-    \begin{onlyenv}<1>
-        \begin{center}
-        \slidejs*[0.5\textwidth]{sum.js}
-        \end{center}
-    \end{onlyenv}
-
-    \begin{onlyenv}<2>
-    \begin{tabular}{p{0.5\textwidth} p{0.5\textwidth}}
-        \slidejs*[0.5\textwidth]{sum.js}
-        &
-        \vspace{0.5cm}
-            \begin{itemize}
-                \item Compilation Unit
-                \item Compilation Unit Task
-                \item Compilation Helper
-            \end{itemize}
-    \end{tabular}
-    \end{onlyenv}
-
-
-    \vspace{-0.5cm}
-    \begin{center}
-    \includegraphics<1>[width=0.9\linewidth, height=0.7\textheight]{figs/simple_ast.pdf}
-    \includegraphics<2>[width=0.9\linewidth, height=0.7\textheight]{figs/simple_ast_annotated.pdf}
-    \end{center}
-\end{frame}
-
 % ============================================================================
+
 \subsection[Modularization]{TSs, LSP and DAP Modularization}
 
 \begin{frame}{\secname}
@@ -1026,16 +995,17 @@
 
 
 % ============================================================================
+
 \section{Conclusions}
 
 \begin{frame}
     \frametitle{\secname}
     \framesubtitle{Master's Thesis Results}
 
-    \Large Interesting results:
+    % \Large Interesting results:
     \normalsize
     % More space between items
-    \begin{itemize}[itemsep=10pt]
+    \begin{itemize}[itemsep=20pt]
         \item We are writing an article (\alert{Code Less to Code More}) to be submitted to \alert{JSS}.
         \item Propose a \alert{feasibility study} for the methodology.
         \item We \alert{prototyped} the reduction of combinations.
@@ -1058,7 +1028,38 @@
 
 \begingroup
 
-\begin{frame}[noframenumbering]
+\begin{frame}{\secname}
+    \frametitle{Type Checking and Type Inference}
+    \begin{onlyenv}<1>
+        \begin{center}
+        \slidejs*[0.5\textwidth]{sum.js}
+        \end{center}
+    \end{onlyenv}
+
+    \begin{onlyenv}<2>
+    \begin{tabular}{p{0.5\textwidth} p{0.5\textwidth}}
+        \slidejs*[0.5\textwidth]{sum.js}
+        &
+        \vspace{0.5cm}
+            \begin{itemize}
+                \item Compilation Unit
+                \item Compilation Unit Task
+                \item Compilation Helper
+            \end{itemize}
+    \end{tabular}
+    \end{onlyenv}
+
+
+    \vspace{-0.5cm}
+    \begin{center}
+    \includegraphics<1>[width=0.9\linewidth, height=0.7\textheight]{figs/simple_ast.pdf}
+    \includegraphics<2>[width=0.9\linewidth, height=0.7\textheight]{figs/simple_ast_annotated.pdf}
+    \end{center}
+\end{frame}
+
+% ============================================================================
+
+\begin{frame}%[noframenumbering]
     \frametitle{Software Product Lines}
 
     Since 1990s, researchers have been working on the concept of \alert{Software Product Lines} (SPLs) to move towards a more \alert{modular} world.
@@ -1075,7 +1076,7 @@
     \end{itemize}
 \end{frame}
 
-\begin{frame}[noframenumbering]
+\begin{frame}%[noframenumbering]
     \frametitle{Language Product Lines}
     Applying the concept of SPLs to programming languages, we obtain the concept of \alert{Language Product Lines} (LPLs).
 
@@ -1091,6 +1092,131 @@
         \item \alert{Reusability} of language artifacts
         \item Multiple \alert{variants} of the same language
         \item \alert{Language Workbenches} come to the rescue
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Research Objective 1}
+
+    \begin{center}
+       \large \alert{RO 1}:
+       \normalsize Reduce to $\mathbf{L} \times \mathbf{1}$ the number of combinations to support $\mathbf{L}$ languages
+       \bigskip
+    \end{center}
+
+    \begin{center}
+    \begin{minipage}{0.75\textwidth}
+    \begin{itemize}
+        \item[RQ 1.1:] How can IDE generation be improved to support LSP and DAP?
+        \item[RQ 1.2:] What are the key challenges in generating LSP and DAP for different programming languages?
+        \item[RQ 1.3:] How can a universal LSP and DAP be developed to support multiple languages and IDEs?
+    \end{itemize}
+    \end{minipage}
+    \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Research Objective 2}
+
+    \begin{center}
+       \large \alert{RO 2}:
+       \normalsize Facilitate LSP and DAP Modularization
+       \bigskip
+    \end{center}
+
+    \begin{center}
+    \begin{minipage}{0.75\textwidth}
+    \begin{itemize}
+        \item[RQ 2.1:] How can LSP and DAP modularization be facilitated in language workbenches?
+        \item[RQ 2.2:] What are the key challenges in modularizing LSP and DAP for different programming languages?
+        \item[RQ 2.3:] How can LSP and DAP modularization be integrated with existing language composition and modularization features in language workbenches?
+    \end{itemize}
+    \end{minipage}
+    \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Research Objective 3}
+
+    \begin{center}
+       \large \alert{RO 3}:
+       \normalsize Improve IDE and LSP Generation
+       \bigskip
+    \end{center}
+
+    \begin{center}
+    \begin{minipage}{0.75\textwidth}
+    \begin{itemize}
+        \item[RQ 3.1:] How can the number of combinations required to support multiple languages be reduced to L × 1?
+        \item[RQ 3.2:] In what ways does simplifying the development process for language support enhance efficiency?
+        \item[RQ 3.3:] How does reducing combinations impact the speed and effectiveness of creating language support?
+    \end{itemize}
+    \end{minipage}
+    \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Research Objective 4}
+
+    \begin{center}
+       \large \alert{RO 4}:
+       \normalsize Leverage Neverlang for LSP and DAP in LPL Development
+       \bigskip
+    \end{center}
+
+    \begin{center}
+    \begin{minipage}{0.75\textwidth}
+    \begin{itemize}
+        \item[RQ 4.1:] How can Neverlang’s LPL development features be leveraged for creating a reusable core for LSP and DAP functionalities?
+        \item[RQ 4.2:] What are the key benefits of using Neverlang for LSP and DAP development in the context of LPLs?
+        \item[RQ 4.3:] How does leveraging Neverlang’s LPL features enhance the scalability and efficiency of LSP and DAP development?
+    \end{itemize}
+    \end{minipage}
+    \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Journals and Conferences}
+    \alert{Journals}
+    \begin{itemize}[itemsep=10pt]
+        \item \normalsize JSS    \scriptsize (Journal of Systems and Software)
+        \item \normalsize TSE    \scriptsize (IEEE Transactions on Software Engineering)
+        \item \normalsize TOSEM  \scriptsize (ACM Transactions on Software Engineering and Methodology)
+        \item \normalsize TOPLAS \scriptsize (ACM Transactions on Programming Languages and Systems)
+    \end{itemize}
+
+    \alert{Conferences}
+    \begin{itemize}[itemsep=10pt]
+        \item \normalsize ICSE   \scriptsize (International Conference on Software Engineering)
+        \item \normalsize PLDI   \scriptsize (Programming Language Design and Implementation)
+        \item \normalsize OOPSLA \scriptsize (Object-Oriented Programming, Systems, Languages, and Applications)
+        \item \normalsize SLE    \scriptsize (Software Language Engineering)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Language Workbenches and Research Groups}
+
+    \begin{itemize}[itemsep=10pt]
+        \item \normalsize JustAdd   $\rightarrow$ \scriptsize Computer Science department of the Lund University (Lund, Sweden)
+        \item \normalsize Melange   $\rightarrow$ \scriptsize DiverSE research team at the Institut National de Recherche en Informatique et en Automatique (INRIA) (Paris, France)
+        \item \normalsize MontiCore $\rightarrow$ \scriptsize Software Engineering group at the RWTH Aachen University (Aquisgrana, Germany)
+        \item \normalsize MPS       $\rightarrow$ \scriptsize JetBrains Research (Saint Petersburg, Russia)
+        \item \normalsize Rascal    $\rightarrow$ \scriptsize Centrum Wiskunde \& Informatica (CWI) (Amsterdam, Netherlands)
+        \item \normalsize Spoofax   $\rightarrow$ \scriptsize Delft University of Technology (Delft, Netherlands)
+        \item \normalsize Xtext     $\rightarrow$ \scriptsize Eclipse Foundation (Ottawa, Canada)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Language Workbenches and Research Groups}
+
+    \begin{itemize}[itemsep=10pt]
+        \item \normalsize Martin Fowler: \scriptsize Renowned for his work on software development methodologies. His book "Domain-Specific Languages" is a seminal work in the field.
+        \item \normalsize Markus Voelter: \scriptsize Known for his contributions to the development and promotion of language workbenches like JetBrains MPS.
+        \item \normalsize Eelco Visser: \scriptsize A professor at Delft University of Technology, Visser has made significant contributions to the field through his work on the Spoofax language workbench.
+        \item \normalsize Gregor Kiczales: \scriptsize Known for his work on aspect-oriented rogramming (AOP). Professor at the University of British Columbia.
+        \item \normalsize Antonia Bertolino: \scriptsize Known for her work on software testing and quality assurance.
     \end{itemize}
 \end{frame}
 
